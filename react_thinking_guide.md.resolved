@@ -1,305 +1,994 @@
-# 🧠 The React Mental Model: Master Guide to Building SkyCast
+# 🧠 SkyCast — The Complete React Mental Model Guide
 
-Transitioning from reading the React documentation to building a full layout can feel like a huge leap. The trick is to stop seeing a "web page" and start seeing a **collection of interlocking, reusable puzzle pieces.**
-
-This guide will walk you through exactly how an experienced React developer looks at your SkyCast design and plans the architecture — **100% conceptually, with zero code.**
+> **What this guide is:** A deep-dive into how to THINK like a React developer — applied to your SkyCast weather app. Zero code. Pure architecture, reasoning, and mental models.
+>
+> **Who this is for:** You — a beginner who has read the React docs up to "Passing Props" and is about to build their first real project.
 
 ---
 
-## Part 1 · How to "Think in Components"
+# TABLE OF CONTENTS
 
-When looking at the SkyCast design, do **not** look at it as one massive screen. Squint your eyes and draw imaginary colored boxes around every distinct visual element. You already did this in your annotated screenshot (the red and blue borders) — that instinct is correct.
-
-### The Three Rules for Deciding "Should This Be a Component?"
-
-| Rule | Question to Ask | SkyCast Example |
+| # | Section | What You'll Learn |
 |---|---|---|
-| **Reusability** | Do I see this exact same visual structure repeated? | The 6 stat boxes (Wind, Humidity, etc.) are all identical in shape. Build **one** `StatCard`, use it 6 times. |
-| **Single Responsibility** | Does this piece do one clear job? | `SearchBar` handles searching. `CurrentWeatherHero` displays the big temperature. They don't mix responsibilities. |
-| **Complexity Isolation** | Is this piece complex enough that it would clutter its parent? | The Sun & Moon arc visualization is only used once, but it's visually complex — isolate it into its own component to keep the parent clean. |
+| 1 | [Thinking in Components](#part-1--thinking-in-components) | When to create a component vs when NOT to |
+| 2 | [The Component Tree](#part-2--the-component-tree) | Every component in SkyCast, organized as a tree |
+| 3 | [Parent-Child Relationships](#part-3--parent-child-relationships) | The Manager-Worker mental model |
+| 4 | [Props — Data Flowing Down](#part-4--props--data-flowing-down) | What data each component receives and from whom |
+| 5 | [Callbacks — Events Flowing Up](#part-5--callbacks--events-flowing-up) | How children talk back to parents |
+| 6 | [State — What Changes and Where](#part-6--state--what-changes-and-where) | Every piece of state in SkyCast and where it lives |
+| 7 | [The Re-Render Chain](#part-7--the-re-render-chain) | What happens in the tree when state changes |
+| 8 | [User Interaction Walkthrough](#part-8--user-interaction-walkthrough) | Tracing a search action step-by-step through the entire tree |
+| 9 | [File & Folder Structure](#part-9--file--folder-structure) | How to organize your project files |
+| 10 | [CSS Strategy](#part-10--css-strategy-for-components) | How to think about styling in a component world |
+| 11 | [The Fake Data Strategy](#part-11--the-fake-data-strategy) | How to build the entire UI before touching an API |
+| 12 | [Build Order](#part-12--build-order-leaves--trunk) | What to build first, second, third — and why |
+| 13 | [Beginner Mistakes](#part-13--the-10-beginner-mistakes) | 10 traps and how to dodge every one |
+| 14 | [React Docs → SkyCast Map](#part-14--react-docs--skycast-map) | Every concept you learned connected to this project |
+| 15 | [Pre-Build Checklist](#part-15--the-pre-build-checklist) | Questions to answer BEFORE writing each component |
+| 16 | [What to Google When Stuck](#part-16--what-to-google-when-youre-stuck) | Exact search queries for common problems |
 
-### What Should NOT Be a Component?
+---
 
-- A single `<p>` tag showing "Feels Like 35°" — that's just JSX inside `CurrentWeatherHero`, not its own component.
-- A thin horizontal line or a spacer — use CSS, not a component.
-- Anything that has no reuse potential AND is trivially simple (3-4 lines of JSX) — just inline it.
+# PART 1 · Thinking in Components
+
+## Stop Seeing a "Page." Start Seeing "Boxes."
+
+Look at your SkyCast screenshot. Don't look at the whole thing. Instead:
+
+1. **Find the biggest boxes.** You can see two columns — a left side and a right side. Those are two components.
+2. **Find the boxes inside those boxes.** The left column has a big weather card on top, a grid of small cards in the middle, and a sun/moon section at the bottom. Those are three more components.
+3. **Find the repeated patterns.** The grid has 6 identical-looking cards. The right side has 7 identical-looking rows. Each of those is ONE component, used multiple times.
+
+That's it. That's "thinking in components." You just zoomed in from the outside, layer by layer, like opening a Russian nesting doll.
+
+## The Three Rules: When to Make a Component
+
+### Rule 1 — The "I See Twins" Rule (Reusability)
+
+If you see the same visual pattern appear MORE THAN ONCE on screen, it MUST be a component.
+
+**In SkyCast:**
+- The 6 small stat boxes → ONE `StatCard` component, used 6 times with different data
+- The 7 forecast rows → ONE `ForecastRow` component, used 7 times with different data
+- The 2 sun/moon rows → ONE `AstroRow` component, used twice
+
+### Rule 2 — The "One Job" Rule (Single Responsibility)
+
+A component should do exactly one thing. If you can describe it in one short sentence, it's the right size.
+
+**Good examples:**
+- `SearchBar` → "lets the user type a city name" ✅
+- `StatCard` → "displays one weather metric with an icon" ✅
+- `TabGroup` → "lets the user pick Today, Tomorrow, or 10 Days" ✅
+
+**Bad example:**
+- `WeatherPageLeftSideWithSearchAndStatsAndSunMoon` → Too many jobs. Break it up. ❌
+
+### Rule 3 — The "It's Getting Cluttered" Rule (Complexity Isolation)
+
+Even if something is used only ONCE, if it's complex (lots of markup, logic, or styling), pull it into its own component. This is about keeping files readable.
+
+**In SkyCast:** The Sun & Moon arc with the SVG curved line is only used once, but it's visually complex enough to be isolated into `ArcVisualization`.
+
+## When Something Should NOT Be a Component
+
+- A single line of text like "Feels Like 35°" → just put it inside `CurrentWeatherHero`
+- A decorative horizontal line → use CSS
+- Something with only 2-3 lines of markup AND no reuse potential → inline it
+- A CSS wrapper with no logic → use a regular HTML element with a class name
 
 > [!TIP]
-> **The litmus test:** If you can't give it a meaningful name, it probably shouldn't be a component. "StatCard" is a good name. "BlueTextThing" is not.
+> **The naming test:** Try to give it a name. If you can say "`StatCard`" or "`ForecastRow`" and another developer would immediately picture what it looks like — great, it's a component. If the best name you can come up with is "`SmallBlueBox`" — it's probably not worth being a component.
 
 ---
 
-## Part 2 · The Deep Component Hierarchy (Your UI as a Tree)
+# PART 2 · The Component Tree
 
-The React docs talk about "Your UI as a Tree." Here is the exact tree for SkyCast, derived from analyzing both your screenshots:
+This is the single most important diagram in this entire guide. **Print it. Stick it next to your monitor. Reference it constantly.**
 
 ```
-App
-├── Navbar
-│   ├── BrandLogo              ("SkyCast" text + hamburger icon)
-│   ├── LocationDisplay         ("Khulna, Bangladesh" with pin icon)
-│   ├── SearchBar               (input field + detect-location button)
-│   ├── ThemeToggle             ("Light" button)
-│   └── UserProfile             (bell, settings, avatar + name)
+App                                    ← The root. Holds all state. The CEO.
 │
-└── MainLayout                  (two-column CSS Grid container)
-    ├── LeftColumn
-    │   ├── CurrentWeatherHero  (big card: time, temp, icon, condition, description)
-    │   ├── StatsGrid           (3×2 grid container)
-    │   │   ├── StatCard        (Air Quality: 156)
-    │   │   ├── StatCard        (Wind: 1 mph)
-    │   │   ├── StatCard        (Humidity: 54%)
-    │   │   ├── StatCard        (Visibility: 3 mi)
-    │   │   ├── StatCard        (Pressure: 27.65 in)
-    │   │   └── StatCard        (Temperature: 66°)
-    │   └── SunMoonCard
-    │       ├── AstroRow        (Sun: golden arc + sunrise/sunset times)
-    │       └── AstroRow        (Moon: blue arc + moonrise/moonset times)
+├── Navbar                             ← Top bar across the full width
+│   ├── BrandLogo                      ← "SkyCast" text + hamburger menu icon
+│   ├── LocationDisplay                ← "📍 Khulna, Bangladesh"
+│   ├── SearchBar                      ← Text input + GPS detect button
+│   ├── ThemeToggle                    ← "Light" / "Dark" button
+│   └── UserProfile                    ← Bell icon, settings icon, avatar, "Wow Rakibul"
+│
+└── MainLayout                         ← Two-column CSS Grid container
     │
-    └── RightColumn
-        ├── ForecastHeader
-        │   ├── TabGroup        (Today | Tomorrow | 10 Days)
-        │   └── MonthlyCastButton
-        └── ForecastList        (scrollable container)
-            ├── ForecastRow     (1AM, Mostly Cloudy, 12°C, Wind/Humidity)
-            ├── ForecastRow     (repeated)
-            ├── ForecastRow     (repeated)
-            ├── ForecastRow     (repeated)
-            ├── ForecastRow     (repeated)
-            ├── ForecastRow     (repeated)
-            └── ForecastRow     (repeated)
+    ├── LeftColumn                     ← Everything on the left side
+    │   │
+    │   ├── CurrentWeatherHero         ← Big card at top
+    │   │   (time, temp, icon, "Rainy", "Feels Like 35°",
+    │   │    description text, Fahrenheit/Celsius dropdown)
+    │   │
+    │   ├── StatsGrid                  ← 3×2 grid of small cards
+    │   │   ├── StatCard               ← Air Quality: 156
+    │   │   ├── StatCard               ← Wind: 1 mph
+    │   │   ├── StatCard               ← Humidity: 54%
+    │   │   ├── StatCard               ← Visibility: 3 mi
+    │   │   ├── StatCard               ← Pressure: 27.65 in
+    │   │   └── StatCard               ← Temperature: 66°
+    │   │
+    │   └── SunMoonCard                ← Bottom section with arcs
+    │       ├── AstroRow               ← ☀️ Sunrise 5:43AM ... arc ... Sunset 5:43AM
+    │       └── AstroRow               ← 🌙 Moonrise 5:43AM ... arc ... Moonset 5:43AM
+    │
+    └── RightColumn                    ← Everything on the right side
+        │
+        ├── ForecastHeader             ← Top strip of the right panel
+        │   ├── TabGroup               ← [Today] [Tomorrow] [10 Days]
+        │   └── MonthlyCastButton      ← "See Monthly Cast" red button
+        │
+        └── ForecastList               ← Scrollable list of rows
+            ├── ForecastRow            ← 1AM | ⛅ Mostly Cloudy | 12°C | Wind: 120km | Humidity: 59%
+            ├── ForecastRow            ← 2AM | ...
+            ├── ForecastRow            ← 3AM | ...
+            ├── ForecastRow            ← 4AM | ...
+            ├── ForecastRow            ← 5AM | ...
+            ├── ForecastRow            ← 6AM | ...
+            └── ForecastRow            ← 7AM | ...
 ```
 
-### Total: ~16 components (but only ~10 unique ones)
+### The Numbers
 
-`StatCard` is built once, rendered 6 times. `ForecastRow` is built once, rendered 7 times. `AstroRow` is built once, rendered twice (sun and moon). **This is the entire power of React** — you write far less than what appears on screen.
-
----
-
-## Part 3 · Parent-Child Relationships (The Manager-Worker Mental Model)
-
-Think of every parent as a **manager** and every child as a **specialist worker**.
-
-### The Chain of Command
-
-```
-App (CEO)
- ↓ "Here's all the weather data for Khulna"
-MainLayout (Floor Manager)
- ↓ "Left side, here's the current stats. Right side, here's the forecast."
-LeftColumn (Team Lead)          RightColumn (Team Lead)
- ↓                               ↓
-StatsGrid (Supervisor)          ForecastList (Supervisor)
- ↓ "Card 1, you show Wind.      ↓ "Row 1, you show 1AM data.
-    Card 2, you show Humidity."      Row 2, you show 2AM data."
-StatCard (Worker)               ForecastRow (Worker)
- → "I just display what          → "I just display what
-    I'm told. I don't know          I'm told. I don't know
-    about APIs or cities."          about tabs or cities."
-```
-
-### Key Insight: Workers Don't Know the Big Picture
-
-`StatCard` doesn't know:
-- What city the user searched
-- Whether the app is in light or dark mode
-- What the temperature is in the hero card
-
-It **only** knows: "I was given an icon, a label, and a value. I display them." This ignorance is a **feature**, not a bug. It makes the component infinitely reusable.
-
----
-
-## Part 4 · The Flow of Data (Props Deep Dive)
-
-**Rule #1 of React: Data flows DOWN. Never up. Never sideways.**
-
-Imagine a waterfall. `App` is at the top of the mountain. Water (data) flows down through every component below it. A component at the bottom of the waterfall cannot push water back up.
-
-### What Props Each Component Receives
-
-| Component | Props It Needs | Who Gives It |
-|---|---|---|
-| `CurrentWeatherHero` | temperature, condition, icon, feelsLike, description, time | `LeftColumn` (which got it from `App`) |
-| `StatCard` | icon, label, value | `StatsGrid` (which got the raw data from `LeftColumn` → `App`) |
-| `ForecastRow` | time, icon, condition, temperature, wind, humidity | `ForecastList` (which got an array from `RightColumn` → `App`) |
-| `AstroRow` | type (sun/moon), riseTime, setTime, arcProgress | `SunMoonCard` (which got it from `LeftColumn` → `App`) |
-| `TabGroup` | activeTab, onTabChange | `ForecastHeader` or `RightColumn` |
-| `SearchBar` | searchText, onSearchChange, onSearchSubmit | `Navbar` (which got the handler from `App`) |
-
-### The Special Case: Callbacks (Data Going "Up")
-
-Wait — if data only flows down, how does `SearchBar` tell `App` what city the user typed?
-
-The answer: **`App` passes a function down as a prop.** Think of it like giving a worker a walkie-talkie. The worker doesn't send data up — they call the function they were given, and the function executes up in `App`'s scope.
-
-```
-App says to SearchBar: "Here's a function called onSearch. 
-When the user types a city and hits enter, call this function 
-and pass the city name into it. I'll handle the rest."
-```
-
-This pattern — passing functions as props — is how child-to-parent communication works in React. You'll encounter it naturally when you study event handling.
-
----
-
-## Part 5 · Identifying State (The 4 Questions)
-
-State is data that **changes over time** and **causes the UI to re-render**. For every piece of data in your app, ask these 4 questions:
-
-### Question 1: Does it change?
-If no → it's not state, it's a constant or a prop.
-
-### Question 2: Can it be computed from other state or props?
-If yes → don't store it as state. Compute it on the fly. Example: "Is the temperature above 30°?" is not state — it's derived from `temperature`.
-
-### Question 3: Who needs it?
-This determines **where** the state lives.
-
-### Question 4: What's the minimal representation?
-Store the least amount of data possible. Don't store "it's hot outside" as state — store `temperature = 35` and derive "hot" from it.
-
-### Applying the 4 Questions to SkyCast
-
-| Data | Changes? | Computed? | Who Needs It? | Where It Lives |
-|---|---|---|---|---|
-| Weather data for current city | ✅ Yes (when user searches) | ❌ No | Almost everything | **`App`** (top of tree) |
-| Search input text | ✅ Yes (as user types) | ❌ No | Only `SearchBar` | **`SearchBar`** itself |
-| Active forecast tab | ✅ Yes (when user clicks) | ❌ No | Only `RightColumn` children | **`RightColumn`** |
-| Light/Dark theme | ✅ Yes (when toggled) | ❌ No | Everything (colors change) | **`App`** |
-| Loading spinner visible? | ✅ Yes | ❌ No | `App` layout | **`App`** |
-| Error message | ✅ Yes | ❌ No | `App` layout | **`App`** |
-| "Feels Like 35°" | ❌ No — it comes from API data | ✅ Yes (part of weather data) | `CurrentWeatherHero` | **Not state** — it's a prop |
-| Fahrenheit/Celsius toggle | ✅ Yes | ❌ No | Multiple stat displays | **`App`** (or `CurrentWeatherHero` if local) |
+| Metric | Count |
+|---|---|
+| Total component instances on screen | ~26 |
+| Unique components you actually build | **~14** |
+| Components that are just "display boxes" | 10+ |
+| Components with any interactive logic | Only 3-4 |
 
 > [!IMPORTANT]
-> **The "Lifting State Up" principle:** The active tab state lives in `RightColumn` because only the right side cares about it. But weather data lives in `App` because BOTH the left and right sides need it. When two sibling components need the same data, you "lift" the state up to their nearest common parent.
+> **The key realization:** You see ~26 things on screen but you only write ~14 component files. `StatCard` alone eliminates 5 files worth of repetition. `ForecastRow` eliminates 6 more. React's component model saves you enormous amounts of work.
 
 ---
 
-## Part 6 · The Build Order (Leaves → Branches → Trunk)
+# PART 3 · Parent-Child Relationships
 
-Most beginners try to build top-down: `App` first, then `Navbar`, etc. This is backwards. You should build **bottom-up**: the smallest, most independent pieces first.
+## The Manager-Worker Mental Model
 
-### Phase 1: The Leaf Components (Day 1)
-Build these first because they have ZERO dependencies on other components:
+Every component relationship in React follows a simple pattern:
 
-| Order | Component | Why First? |
-|---|---|---|
-| 1 | `StatCard` | Simplest visual piece. Just an icon + label + value in a box. |
-| 2 | `ForecastRow` | Same idea — one row of forecast data. |
-| 3 | `BrandLogo` | Just text. Trivial. |
+- **The Parent (Manager)** decides WHAT to show and WHERE. It holds data and passes it down.
+- **The Child (Worker)** decides HOW to show it. It receives props and renders them beautifully.
 
-At this point, test them in isolation. Render a single `StatCard` on screen with hardcoded props. Does it look like the screenshot? Perfect. Move on.
+### Concrete Examples from SkyCast
 
-### Phase 2: The Container Components (Day 1-2)
-Now build the parents that hold your leaves:
+**`StatsGrid` is the Manager of `StatCard`:**
 
-| Order | Component | What It Does |
-|---|---|---|
-| 4 | `StatsGrid` | Renders 6 `StatCard`s in a 3×2 CSS Grid |
-| 5 | `ForecastList` | Renders 7 `ForecastRow`s in a vertical scrollable list |
-| 6 | `CurrentWeatherHero` | The big card — just layout + text, no children components |
+```
+StatsGrid (Manager) says:
+  "I'm going to arrange 6 cards in a 3-column grid.
+   Card 1 gets: icon=air, label=Air Quality, value=156
+   Card 2 gets: icon=wind, label=Wind, value=1 mph
+   Card 3 gets: icon=droplet, label=Humidity, value=54%
+   ... and so on."
 
-### Phase 3: The Layout Skeleton (Day 2)
-Now build the structural "bones" of the page:
+StatCard (Worker) says:
+  "I don't care how many siblings I have.
+   I don't care about the grid layout.
+   I don't care what city this is for.
+   Just give me icon, label, and value.
+   I'll make them look beautiful."
+```
 
-| Order | Component | What It Does |
-|---|---|---|
-| 7 | `Navbar` | Horizontal bar with `SearchBar`, logo, controls |
-| 8 | `SearchBar` | Input field (just the visual — no functionality yet) |
-| 9 | `TabGroup` | Three buttons: Today, Tomorrow, 10 Days |
-| 10 | `MainLayout` | The two-column CSS Grid that holds Left and Right |
+**`ForecastList` is the Manager of `ForecastRow`:**
 
-### Phase 4: Assembly (Day 2-3)
-Plug everything together. Your app now looks exactly like the screenshot — but with 100% fake data.
+```
+ForecastList (Manager) says:
+  "I have an array of 7 hourly forecasts.
+   I'll create one ForecastRow per item.
+   Row 1 gets: time=1AM, condition=Mostly Cloudy, temp=12°C
+   Row 2 gets: time=2AM, condition=Mostly Cloudy, temp=12°C
+   ... and so on."
 
-### Phase 5: Interactivity (Day 3)
-- Make tabs clickable (state for active tab)
-- Make search bar functional (state for input text)
-- Add Fahrenheit/Celsius toggle
+ForecastRow (Worker) says:
+  "I show one horizontal row with the data I'm given.
+   I have no idea what's in the rows above or below me.
+   That's not my job."
+```
 
-### Phase 6: Real Data (Day 4+)
-- Connect to a weather API
-- Replace all hardcoded values with API responses flowing through props
-- Add loading and error states
+**`App` is the Manager of EVERYTHING:**
 
-### Phase 7: Polish (Day 5+)
-- `SunMoonCard` with arc visualization (hardest visual piece — save for last)
-- `ThemeToggle` (light/dark mode)
-- Responsive design for mobile
-- Animations and transitions
+```
+App (CEO) says:
+  "I hold the master weather data for whatever city was searched.
+   I send current-weather data to the left side.
+   I send forecast data to the right side.
+   I send the city name to the navbar.
+   Nobody fetches their own data — everyone gets it from me."
+```
 
----
+### Why This Matters
 
-## Part 7 · Common Beginner Mistakes (and How to Avoid Them)
+Because each worker is completely independent of its context:
+- `StatCard` could be used in a completely different app (a fitness dashboard, a stock tracker) without changing a single thing inside it.
+- `ForecastRow` has no idea it lives inside a weather app. It just renders whatever time, icon, and temperature it receives.
 
-### Mistake 1: Copy-Paste Components
-❌ Writing out 6 separate `<div>` blocks for each stat box.  
-✅ Build ONE `StatCard`. Render it 6 times with different props.
-
-### Mistake 2: State in the Wrong Place
-❌ Fetching weather data inside `CurrentWeatherHero`.  
-✅ Fetch it in `App` and pass it down. Otherwise, `RightColumn` can't access it.
-
-### Mistake 3: API Integration Too Early
-❌ Trying to learn components, CSS Grid, props, AND API calls all at once.  
-✅ Build the entire UI with fake hardcoded data first. Add the API as the **very last step**.
-
-### Mistake 4: One Giant Component
-❌ Putting all the HTML for the entire page inside `App.jsx`.  
-✅ Break it into the tree structure above. Each file should be small and focused.
-
-### Mistake 5: Prop Drilling Anxiety
-❌ Worrying that passing props through 3 levels is "wrong."  
-✅ For a project this size, passing props through 2-3 levels is totally fine and expected. Don't reach for advanced patterns (Context, Redux) yet.
-
-### Mistake 6: Styling Before Structure
-❌ Spending 2 hours making `StatCard` pixel-perfect before building the rest.  
-✅ Get ugly-but-working versions of all components assembled first. Polish last.
-
-### Mistake 7: Not Using the Screenshot
-❌ Trying to build from memory.  
-✅ Keep your design screenshot open side-by-side with your code at all times.
+**This is component reusability — the entire point of React.**
 
 ---
 
-## Part 8 · Connecting the Dots — Your React Docs Knowledge Map
+# PART 4 · Props — Data Flowing Down
 
-Here is every React concept you've learned (and will learn next) mapped to a concrete SkyCast scenario:
+## The Waterfall Rule
 
-### ✅ What You Already Know
+```
+        🏔️ App (holds ALL the data)
+        |
+        | props flow DOWN
+        ↓
+    ┌───────────┐
+    |MainLayout |
+    └─────┬─────┘
+          |
+    ┌─────┴──────┐
+    ↓             ↓
+LeftColumn    RightColumn
+    ↓             ↓
+StatsGrid    ForecastList
+    ↓             ↓
+StatCard     ForecastRow    ← leaf components (the bottom of the waterfall)
+```
 
-| Concept | Where It Appears in SkyCast |
+**Data flows DOWN. Always. Only.**
+
+- `App` → `MainLayout` → `LeftColumn` → `StatsGrid` → `StatCard`
+- `App` → `MainLayout` → `RightColumn` → `ForecastList` → `ForecastRow`
+- A `StatCard` can NEVER reach over to `ForecastRow` and grab its data
+- A `ForecastRow` can NEVER look up at `App` and ask for something
+
+## What Props Each Component Gets (The Full Map)
+
+### Navbar Area
+
+| Component | Prop Name | Example Value | Given By |
+|---|---|---|---|
+| `LocationDisplay` | cityName | "Khulna, Bangladesh" | `Navbar` |
+| `SearchBar` | onSearchSubmit | a function | `Navbar` (from `App`) |
+| `ThemeToggle` | currentTheme | "light" | `Navbar` (from `App`) |
+| `ThemeToggle` | onToggle | a function | `Navbar` (from `App`) |
+
+### Left Column
+
+| Component | Prop Name | Example Value | Given By |
+|---|---|---|---|
+| `CurrentWeatherHero` | temperature | 12 | `LeftColumn` |
+| `CurrentWeatherHero` | unit | "F" | `LeftColumn` |
+| `CurrentWeatherHero` | condition | "Rainy" | `LeftColumn` |
+| `CurrentWeatherHero` | feelsLike | 35 | `LeftColumn` |
+| `CurrentWeatherHero` | description | "There will be mostly sunny skies..." | `LeftColumn` |
+| `CurrentWeatherHero` | icon | "partly-cloudy" | `LeftColumn` |
+| `CurrentWeatherHero` | time | "2:59PM" | `LeftColumn` |
+| `StatCard` | icon | "wind" | `StatsGrid` |
+| `StatCard` | label | "Wind" | `StatsGrid` |
+| `StatCard` | value | "1 mph" | `StatsGrid` |
+| `AstroRow` | type | "sun" | `SunMoonCard` |
+| `AstroRow` | riseTime | "5:43AM" | `SunMoonCard` |
+| `AstroRow` | setTime | "5:43AM" | `SunMoonCard` |
+
+### Right Column
+
+| Component | Prop Name | Example Value | Given By |
+|---|---|---|---|
+| `TabGroup` | activeTab | "today" | `RightColumn` |
+| `TabGroup` | onTabChange | a function | `RightColumn` |
+| `ForecastRow` | time | "1AM" | `ForecastList` |
+| `ForecastRow` | icon | "mostly-cloudy" | `ForecastList` |
+| `ForecastRow` | condition | "Mostly Cloudy" | `ForecastList` |
+| `ForecastRow` | temperature | 12 | `ForecastList` |
+| `ForecastRow` | unit | "C" | `ForecastList` |
+| `ForecastRow` | wind | "120km" | `ForecastList` |
+| `ForecastRow` | humidity | "59%" | `ForecastList` |
+
+> [!NOTE]
+> **Pattern to notice:** The props for `StatCard` and `ForecastRow` are extremely generic. They're just `label`, `value`, `icon`, `time`, etc. They don't say anything weather-specific. That's what makes them reusable. If you named the props `windSpeed` inside `StatCard`, it would feel weird when you use the same component for "Humidity." Keep prop names generic.
+
+---
+
+# PART 5 · Callbacks — Events Flowing Up
+
+## The Walkie-Talkie Model
+
+Data flows down through props. But what happens when the user types in the `SearchBar`? The search text needs to somehow reach `App` so that `App` can fetch new weather data. How does a child communicate UP?
+
+**Answer: The parent gives the child a function (a "walkie-talkie"), and the child calls that function when something happens.**
+
+### How it works conceptually:
+
+```
+STEP 1: App creates a function called "handleSearch"
+        This function knows how to fetch weather data for a given city.
+
+STEP 2: App passes this function DOWN as a prop to Navbar.
+        App says: "Hey Navbar, here's a walkie-talkie called onSearch."
+
+STEP 3: Navbar passes it further down to SearchBar.
+        Navbar says: "Hey SearchBar, here's the walkie-talkie."
+
+STEP 4: User types "London" and hits Enter.
+
+STEP 5: SearchBar calls the walkie-talkie function: onSearch("London")
+
+STEP 6: This call EXECUTES inside App (where the function was defined).
+        App now knows the user wants London's weather.
+        App fetches London's data.
+        App's state updates.
+        The entire tree re-renders with London data.
+```
+
+### All the Callbacks in SkyCast
+
+| Callback Function | Created In | Passed To | Triggered When |
+|---|---|---|---|
+| `handleSearch` | `App` | `Navbar` → `SearchBar` | User submits a city name |
+| `handleTabChange` | `RightColumn` | `TabGroup` | User clicks Today/Tomorrow/10 Days |
+| `handleThemeToggle` | `App` | `Navbar` → `ThemeToggle` | User clicks Light/Dark button |
+| `handleUnitChange` | `App` | `LeftColumn` → `CurrentWeatherHero` | User switches Fahrenheit/Celsius |
+
+> [!TIP]
+> **How to remember:** Props are like packages sent downhill by a delivery truck. Callbacks are like walkie-talkies that let the delivery person report back: "Package delivered!" or "Customer wants a different item!" The delivery person doesn't make decisions — they just call the boss.
+
+---
+
+# PART 6 · State — What Changes and Where
+
+## State vs. Not-State (The Filter)
+
+For EVERY piece of information in your app, run it through these 4 filters:
+
+```
+FILTER 1: Does this data ever change?
+  NO  → It's a constant. Not state.
+  YES → Continue to Filter 2.
+
+FILTER 2: Is it passed in from a parent via props?
+  YES → It's a prop, not state. The parent owns it.
+  NO  → Continue to Filter 3.
+
+FILTER 3: Can you compute it from existing state or props?
+  YES → Don't store it. Calculate it when needed.
+  NO  → Continue to Filter 4.
+
+FILTER 4: ✅ It's state. Now figure out WHERE it lives.
+```
+
+## Applying the Filter to Every Piece of Data in SkyCast
+
+| Data | Filter 1: Changes? | Filter 2: From parent? | Filter 3: Computable? | Verdict | Lives In |
+|---|---|---|---|---|---|
+| All weather data for city | ✅ Yes (new city = new data) | ❌ No | ❌ No | **STATE** | `App` |
+| Text user is typing in search | ✅ Yes (every keystroke) | ❌ No | ❌ No | **STATE** | `SearchBar` |
+| Which tab is active (Today/Tomorrow/10 Days) | ✅ Yes (user clicks) | ❌ No | ❌ No | **STATE** | `RightColumn` |
+| Current theme (light/dark) | ✅ Yes (user toggles) | ❌ No | ❌ No | **STATE** | `App` |
+| Is data loading? | ✅ Yes | ❌ No | ❌ No | **STATE** | `App` |
+| Error message from failed API | ✅ Yes | ❌ No | ❌ No | **STATE** | `App` |
+| Current unit (°F / °C) | ✅ Yes (user switches) | ❌ No | ❌ No | **STATE** | `App` |
+| "Feels Like 35°" | ❌ No — comes from API | ✅ Yes (part of weather data) | — | **PROP** | Not stored separately |
+| "Mostly Cloudy" text in forecast | ❌ No — comes from API | ✅ Yes | — | **PROP** | Not stored separately |
+| Whether it's currently daytime | — | — | ✅ Yes (derive from current time) | **COMPUTED** | Not stored |
+| Number of forecast rows to show | — | — | ✅ Yes (depends on active tab) | **COMPUTED** | Not stored |
+
+## WHERE State Lives — The "Closest Common Ancestor" Rule
+
+A piece of state should live in the **lowest component in the tree that is a parent of ALL components that need it.**
+
+```
+               App  ← weatherData lives HERE because both sides need it
+              /   \
+      LeftColumn   RightColumn  ← activeTab lives HERE (only right side needs it)
+         |              |
+    CurrentWeather  ForecastList
+         |              |
+      StatCard      ForecastRow
+```
+
+- `weatherData` lives in `App` because BOTH `LeftColumn` AND `RightColumn` need it
+- `activeTab` lives in `RightColumn` because ONLY the right side cares about it
+- `searchText` lives in `SearchBar` because ONLY the search input needs it
+- `theme` lives in `App` because the ENTIRE app's colors change
+- `isLoading` lives in `App` because it affects whether we show the dashboard or a spinner
+
+> [!IMPORTANT]
+> **The "Lifting State Up" rule:** If you initially put `activeTab` inside `TabGroup`, but later realize `ForecastList` (a sibling of `TabGroup`) also needs to know which tab is active to display the right data — you "lift" the state up to their nearest common parent, which is `RightColumn`. This is one of the most important patterns in React.
+
+---
+
+# PART 7 · The Re-Render Chain
+
+## What Happens When State Changes?
+
+This is a concept many beginners find mysterious. Here's the mental model:
+
+**When state changes in a component, that component AND all its children re-render.** Think of it like a ripple in a pond — the ripple starts where the stone (state change) was thrown and spreads downward through the tree.
+
+### Example: User Searches for "London"
+
+```
+1. User types "London" in SearchBar and hits Enter
+2. SearchBar calls the onSearch callback (walkie-talkie)
+3. The function executes in App
+4. App updates its weatherData state to London's data
+5. React says: "App's state changed. Time to re-render."
+
+   The re-render cascade:
+   ╔══════════════════════════════════════╗
+   ║  App                    ← RE-RENDERS (state changed here)
+   ║  ├── Navbar             ← RE-RENDERS (child of App)
+   ║  │   ├── LocationDisplay← RE-RENDERS (now shows "London, UK")
+   ║  │   ├── SearchBar      ← RE-RENDERS
+   ║  │   └── ...
+   ║  └── MainLayout         ← RE-RENDERS
+   ║      ├── LeftColumn     ← RE-RENDERS
+   ║      │   ├── CurrentWeatherHero ← RE-RENDERS (new temp!)
+   ║      │   ├── StatsGrid  ← RE-RENDERS
+   ║      │   │   └── StatCard ×6 ← ALL RE-RENDER (new values!)
+   ║      │   └── SunMoonCard← RE-RENDERS
+   ║      └── RightColumn    ← RE-RENDERS
+   ║          └── ForecastList← RE-RENDERS
+   ║              └── ForecastRow ×7 ← ALL RE-RENDER (new forecast!)
+   ╚══════════════════════════════════════╝
+
+6. The ENTIRE screen now shows London's weather.
+   This all happens in milliseconds. The user sees an instant update.
+```
+
+### Example: User Clicks "Tomorrow" Tab
+
+```
+1. User clicks the "Tomorrow" tab
+2. TabGroup calls the onTabChange callback
+3. The function executes in RightColumn
+4. RightColumn updates its activeTab state to "tomorrow"
+5. React says: "RightColumn's state changed. Re-render it and its children."
+
+   The re-render cascade:
+   App                       ← Does NOT re-render (state didn't change here)
+   ├── Navbar                ← Does NOT re-render
+   └── MainLayout            ← Does NOT re-render
+       ├── LeftColumn        ← Does NOT re-render
+       │   └── ...           ← None of these re-render
+       └── RightColumn       ← RE-RENDERS (state changed here)
+           ├── ForecastHeader← RE-RENDERS
+           │   └── TabGroup  ← RE-RENDERS ("Tomorrow" is now highlighted)
+           └── ForecastList  ← RE-RENDERS (now shows tomorrow's data)
+               └── ForecastRow ×7 ← ALL RE-RENDER (different hours/temps)
+
+6. Only the right side updates. The left side doesn't even blink.
+```
+
+> [!NOTE]
+> **Why this matters for WHERE you put state:** If you accidentally stored `activeTab` in `App`, clicking a tab would re-render the ENTIRE app — including the left side, Navbar, everything. That's wasteful. By storing it in `RightColumn`, the re-render is contained to only the components that actually need to change. **Put state as low as possible in the tree.**
+
+---
+
+# PART 8 · User Interaction Walkthrough
+
+Let's trace the complete journey of a user action through the entire tree — from click to pixels.
+
+## Scenario: User Searches "Tokyo"
+
+### Step 1 — The User Acts
+The user types "Tokyo" into the `SearchBar` input field and presses Enter.
+
+### Step 2 — The Child Calls the Walkie-Talkie
+`SearchBar` has a prop called `onSearchSubmit` — a function it received from above. When the user presses Enter, `SearchBar` calls `onSearchSubmit("Tokyo")`.
+
+### Step 3 — The Function Runs in App
+The `onSearchSubmit` function was originally defined in `App`. Even though `SearchBar` called it, it executes in `App`'s context. Inside this function, `App`:
+1. Sets `isLoading` to `true` (a loading spinner appears)
+2. Sends a request to the weather API for "Tokyo"
+3. Waits for the response
+
+### Step 4 — Loading State Propagates
+Because `isLoading` changed in `App`, the entire tree re-renders. But now, `App` notices `isLoading` is `true`, so instead of rendering `MainLayout`, it renders a loading spinner. The user sees a spinner.
+
+### Step 5 — Data Arrives
+The API responds with Tokyo's weather data. `App`:
+1. Stores the weather data in `weatherData` state
+2. Sets `isLoading` to `false`
+
+### Step 6 — The Data Cascades Down Like a Waterfall
+`App` passes Tokyo's data down through props:
+
+```
+App takes the Tokyo weather data and splits it up:
+
+To Navbar → LocationDisplay:
+  cityName = "Tokyo, Japan"
+
+To LeftColumn → CurrentWeatherHero:
+  temperature = 22
+  condition = "Partly Cloudy"
+  feelsLike = 20
+  description = "Clear skies expected this evening."
+  time = "3:15PM"
+
+To LeftColumn → StatsGrid → StatCard (×6):
+  Card 1: label="Air Quality", value="45"
+  Card 2: label="Wind", value="5 mph"
+  Card 3: label="Humidity", value="72%"
+  Card 4: label="Visibility", value="8 mi"
+  Card 5: label="Pressure", value="30.12 in"
+  Card 6: label="Temperature", value="71°"
+
+To RightColumn → ForecastList → ForecastRow (×7):
+  Row 1: time="1PM", condition="Sunny", temp=24
+  Row 2: time="2PM", condition="Sunny", temp=23
+  ... etc.
+
+To LeftColumn → SunMoonCard → AstroRow (×2):
+  Row 1: type="sun", rise="5:12AM", set="6:45PM"
+  Row 2: type="moon", rise="8:30PM", set="6:12AM"
+```
+
+### Step 7 — Every Leaf Renders Its Data
+Each leaf component — `StatCard`, `ForecastRow`, `AstroRow`, `CurrentWeatherHero` — receives its new props and displays them. None of them know or care that the city changed. They just render whatever they receive.
+
+### Step 8 — The User Sees Tokyo's Weather
+The entire screen now reflects Tokyo. The location says "Tokyo, Japan." The temperature shows 22°. The stats show different values. The forecast shows different hours. **All because `App` changed one piece of state, and React's waterfall did the rest.**
+
+---
+
+# PART 9 · File & Folder Structure
+
+## How to Organize Your Project
+
+Every component gets **two files**: a `.jsx` file (structure + logic) and a `.css` file (styling). Group them together.
+
+```
+src/
+│
+├── components/                    ← All your components live here
+│   │
+│   ├── Navbar/                    ← One folder per component (or group)
+│   │   ├── Navbar.jsx
+│   │   ├── Navbar.css
+│   │   ├── BrandLogo.jsx          ← Small sub-components can share the folder
+│   │   ├── SearchBar.jsx
+│   │   ├── SearchBar.css
+│   │   ├── ThemeToggle.jsx
+│   │   ├── LocationDisplay.jsx
+│   │   └── UserProfile.jsx
+│   │
+│   ├── CurrentWeatherHero/
+│   │   ├── CurrentWeatherHero.jsx
+│   │   └── CurrentWeatherHero.css
+│   │
+│   ├── StatsGrid/
+│   │   ├── StatsGrid.jsx
+│   │   ├── StatsGrid.css
+│   │   ├── StatCard.jsx           ← Lives with its parent
+│   │   └── StatCard.css
+│   │
+│   ├── SunMoonCard/
+│   │   ├── SunMoonCard.jsx
+│   │   ├── SunMoonCard.css
+│   │   ├── AstroRow.jsx
+│   │   └── AstroRow.css
+│   │
+│   ├── Forecast/
+│   │   ├── RightColumn.jsx
+│   │   ├── RightColumn.css
+│   │   ├── ForecastHeader.jsx
+│   │   ├── TabGroup.jsx
+│   │   ├── TabGroup.css
+│   │   ├── ForecastList.jsx
+│   │   ├── ForecastList.css
+│   │   ├── ForecastRow.jsx
+│   │   └── ForecastRow.css
+│   │
+│   └── Layout/
+│       ├── MainLayout.jsx
+│       └── MainLayout.css
+│
+├── App.jsx                        ← Root component, holds state
+├── App.css                        ← App-level layout styles
+└── index.css                      ← Global styles, CSS variables, resets
+```
+
+### Why This Structure?
+
+| Decision | Reason |
 |---|---|
-| **Your First Component** | Every piece of the tree diagram above is a component you'll create |
-| **Importing/Exporting** | `StatsGrid` will import `StatCard`. `App` will import `MainLayout`. Each component lives in its own file. |
-| **JSX Markup** | The HTML-like structure inside every component — the `<div>`s, `<p>`s, `<img>`s that create the visual layout |
-| **JavaScript in JSX (Curly Braces)** | Instead of hardcoding `12°F`, you'll write `{temperature}°F`. Instead of hardcoding "Rainy", you'll write `{condition}`. |
-| **Passing Props** | `StatsGrid` passes `label="Wind"` and `value="1 mph"` to `StatCard`. This is THE most-used concept in SkyCast. |
+| One folder per "feature area" | Easy to find related files. Everything about "Forecast" is in one folder. |
+| Small children live with their parents | `StatCard` lives inside `StatsGrid/` because it's only used there. |
+| CSS file next to its component | You never have to hunt for the styles. `StatCard.jsx` → `StatCard.css` is right there. |
+| `index.css` for globals | Color variables, font imports, CSS resets — things that apply everywhere. |
 
-### 📚 What You're About to Learn
+> [!TIP]
+> **Beginner-friendly alternative:** If folders-per-feature feels overwhelming, you can start with a flat structure — ALL components directly inside `components/`. Refactor into folders later once you have more than 15 files. The flat approach works fine until your project grows.
 
-| Concept | Where It Appears in SkyCast |
+---
+
+# PART 10 · CSS Strategy for Components
+
+## The Golden Rule: Each Component Owns Its Own Styles
+
+`StatCard.css` should ONLY contain styles that affect `StatCard`. It should NOT try to style `ForecastRow` or the global background color.
+
+### What Goes Where?
+
+| File | What It Contains | Examples |
+|---|---|---|
+| `index.css` | Global resets, CSS variables, fonts, body background | Your lavender gradient background, font imports, color palette |
+| `App.css` | The overall page layout | How `Navbar` and `MainLayout` sit on the page |
+| `MainLayout.css` | The two-column grid | CSS Grid that puts LeftColumn and RightColumn side-by-side |
+| `StatCard.css` | How ONE stat card box looks | Border-radius, padding, background, icon positioning |
+| `ForecastRow.css` | How ONE forecast row looks | Horizontal layout, spacing between icon/temp/wind |
+
+### The Color Palette (What to Define in `index.css`)
+
+Looking at your design screenshots, these are the colors you need to define as CSS variables:
+
+| Purpose | What It Looks Like | Variable Name Idea |
+|---|---|---|
+| Page background | Soft lavender/blue gradient | `--bg-gradient` |
+| Card background | White or very slightly transparent white | `--card-bg` |
+| Card border | Very subtle light blue/gray | `--card-border` |
+| Primary text | Dark charcoal/navy (the temperatures, labels) | `--text-primary` |
+| Secondary text | Medium gray (descriptions, secondary info) | `--text-secondary` |
+| Active tab | White background with subtle shadow | `--tab-active-bg` |
+| Inactive tab | Transparent with gray text | `--tab-inactive` |
+| Red accent | The "See Monthly Cast" button and the red card borders in your wireframe | `--accent-red` |
+| Blue accent | Soft blue used in borders and highlights | `--accent-blue` |
+
+### Component Styling Rules
+
+1. **Use class names, not IDs.** Each component's root element gets a class name matching the component: `class="stat-card"`, `class="forecast-row"`.
+2. **Prefix your classes.** To avoid naming collisions, use the component name as a prefix: `stat-card-icon`, `stat-card-label`, `stat-card-value`.
+3. **Don't use global tag selectors** like `div { }` or `p { }` in component CSS files. Those will leak to other components.
+
+---
+
+# PART 11 · The Fake Data Strategy
+
+## Build the Entire UI Before Touching Any API
+
+This is possibly the most important tactical advice in this entire guide. **Do not fetch real data from an API until your UI is 100% complete with fake data.**
+
+### Why?
+
+When you work with real APIs:
+- API calls can fail (network errors, rate limits, wrong API key)
+- The data shape might be unexpected (nested objects, missing fields)
+- Debugging becomes harder — is the bug in your components or in your data?
+
+By using fake data first, you eliminate ALL of these problems. Every bug you encounter is a component/CSS bug, which is much easier to fix.
+
+### What Your Fake Data Looks Like (Conceptually)
+
+Imagine you create a plain JavaScript object at the top of `App.jsx` that looks like this:
+
+```
+A fake data object shaped like:
+
+{
+  city: "Khulna, Bangladesh",
+  current: {
+    time: "2:59PM",
+    temperature: 12,
+    unit: "F",
+    condition: "Rainy",
+    feelsLike: 35,
+    icon: "partly-cloudy",
+    description: "There will be mostly sunny skies. The high will be 35°."
+  },
+  stats: {
+    airQuality: 156,
+    wind: "1 mph",
+    humidity: "54%",
+    visibility: "3 mi",
+    pressure: "27.65 in",
+    temperature: "66°"
+  },
+  astronomy: {
+    sun: { rise: "5:43AM", set: "5:43AM" },
+    moon: { rise: "5:43AM", set: "5:43AM" }
+  },
+  forecast: {
+    today: [
+      { time: "1AM", condition: "Mostly Cloudy", temp: 12, wind: "120km", humidity: "59%", icon: "cloudy" },
+      { time: "2AM", condition: "Mostly Cloudy", temp: 12, wind: "120km", humidity: "59%", icon: "cloudy" },
+      ... 5 more rows
+    ],
+    tomorrow: [ ... different data ... ],
+    tenDays: [ ... different data ... ]
+  }
+}
+```
+
+You hardcode this once, and the entire UI works perfectly with it. Every `StatCard` gets its props from this object. Every `ForecastRow` gets its data from the `forecast.today` array.
+
+### The Swap
+
+Later (Phase 6), you replace this fake object with real API data. Since the structure is the same, **nothing else needs to change.** All your components keep working exactly as before — they don't care if the data came from a hardcoded object or a real API.
+
+---
+
+# PART 12 · Build Order (Leaves → Trunk)
+
+## The Complete Sequence — What to Build and When
+
+### 🟢 Phase 1: Foundation (Day 1 — first 2 hours)
+
+| Step | What | Why This Order |
+|---|---|---|
+| 1 | Set up Vite project | You need a working development environment |
+| 2 | Set up `index.css` with CSS variables + color palette | Every component will reference these colors |
+| 3 | Build `StatCard` | Smallest, simplest component. Instant visual reward. |
+| 4 | Build `ForecastRow` | Second smallest. Same idea. |
+
+**Stop here and verify:** Do `StatCard` and `ForecastRow` look correct when you display one of each?
+
+### 🟡 Phase 2: Containers (Day 1 — next 2 hours)
+
+| Step | What | Why This Order |
+|---|---|---|
+| 5 | Build `StatsGrid` — render 6 `StatCard`s in a grid | You can now see if your grid layout works |
+| 6 | Build `ForecastList` — render 7 `ForecastRow`s in a list | You can now see if your list scrolling works |
+| 7 | Build `CurrentWeatherHero` — the big temperature card | Standalone card, no children needed |
+
+**Stop here and verify:** Does the 3×2 grid look right? Does the scrollable list work?
+
+### 🟠 Phase 3: Layout (Day 2)
+
+| Step | What | Why This Order |
+|---|---|---|
+| 8 | Build `MainLayout` — two-column CSS Grid | This is just the skeleton — left/right split |
+| 9 | Plug `StatsGrid`, `CurrentWeatherHero` into the left column | Left side starts looking like the design |
+| 10 | Build `TabGroup` and `ForecastHeader` | The top of the right panel |
+| 11 | Plug `ForecastHeader` and `ForecastList` into the right column | Right side now looks complete |
+| 12 | Build `Navbar` with `SearchBar`, `BrandLogo`, etc. | Top bar across full width |
+
+**Stop here and verify:** Does the full page layout match the screenshot? (All data is still fake.)
+
+### 🔴 Phase 4: Interactivity (Day 3)
+
+| Step | What | Why This Order |
+|---|---|---|
+| 13 | Add state for `activeTab` in `RightColumn` | Tabs now switch and highlight correctly |
+| 14 | Show different forecast data based on active tab | Right side changes when you click tabs |
+| 15 | Add state for search input in `SearchBar` | User can type in the search box |
+| 16 | Add `ThemeToggle` state in `App` | Light/dark mode toggle |
+
+### ⚫ Phase 5: Real Data (Day 4+)
+
+| Step | What | Why This Order |
+|---|---|---|
+| 17 | Create `weatherApi.js` service file | Separate API logic from component logic |
+| 18 | Add `isLoading` and `error` state in `App` | Handle the "waiting" and "failed" states |
+| 19 | Connect search to real API calls | App now fetches real data on search |
+| 20 | Handle loading spinner and error messages | User sees feedback while waiting |
+
+### 🌟 Phase 6: Polish (Day 5+)
+
+| Step | What |
 |---|---|
-| **Conditional Rendering** | Show a loading spinner WHILE data is being fetched. Show an error message IF the city doesn't exist. Show the sun icon IF daytime, moon icon IF nighttime. |
-| **Rendering Lists** | The 7 `ForecastRow`s in the right panel. You'll have an array of forecast objects and `.map()` over them to generate rows. The 6 `StatCard`s could also be rendered from an array. |
-| **Keeping Components Pure** | `StatCard` should produce the same visual output every time it receives the same props. It should not secretly modify global variables or change data outside itself. |
-| **Your UI as a Tree** | The entire tree diagram in Part 2 above IS this concept. React renders your components as a tree, and data flows from root to leaves. |
+| 21 | Build `SunMoonCard` with arc visualization (hardest visual element) |
+| 22 | Fine-tune spacing, shadows, border-radius to match the screenshot |
+| 23 | Add hover effects, transitions, subtle animations |
+| 24 | Make it responsive for tablet and mobile |
+| 25 | Add the gradient background matching the lavender design |
 
 ---
 
-## Final Mental Model: The Restaurant Analogy 🍽️
+# PART 13 · The 10 Beginner Mistakes
 
-Think of SkyCast as a restaurant:
+### ❌ Mistake 1: Writing 6 Different Stat Boxes
+**What happens:** You create `AirQualityCard.jsx`, `WindCard.jsx`, `HumidityCard.jsx`... 6 separate files that all look 95% the same.
+**Why it's wrong:** Massive code duplication. If you want to change the border-radius, you change it in 6 places.
+**The fix:** ONE `StatCard` component. 6 different prop values.
 
-- **`App`** is the **restaurant owner**. They know everything — what's on the menu (weather data), what the hours are (theme), what customers want (search results).
-- **`MainLayout`** is the **floor plan** — it decides there's a left dining area and a right bar area.
-- **`StatsGrid`** is a **waiter** — they take the order (data) from the kitchen (App) and deliver it to the right tables (StatCards).
-- **`StatCard`** is a **plate**. It doesn't cook. It doesn't take orders. It just presents whatever food (data) is placed on it, beautifully.
-- **`SearchBar`** is the **front desk phone**. When a customer calls (user types), the phone doesn't decide what to do — it rings the owner (calls the function passed via props), and the owner handles it.
+### ❌ Mistake 2: Fetching Data Inside a Child
+**What happens:** You put the API call inside `CurrentWeatherHero` because it "displays weather." But then `RightColumn` also needs weather data and can't access it.
+**Why it's wrong:** Siblings can't share data. Only parents can distribute to children.
+**The fix:** Fetch in `App`, pass down via props.
 
-**The plate doesn't need to know the recipe. The waiter doesn't need to know the business plan. Each piece does its one job, and the system works because data flows clearly from the top down.**
+### ❌ Mistake 3: Fighting APIs on Day 1
+**What happens:** You spend 4 hours debugging why `fetch()` returns `undefined` when you don't even have a working `StatCard` yet.
+**Why it's wrong:** You're debugging two things at once: your UI and the API. That's twice as hard.
+**The fix:** Use fake data for the entire UI first. Add the API as the very last step.
+
+### ❌ Mistake 4: One Giant 500-Line App.jsx
+**What happens:** All the HTML for the entire page — navbar, weather card, stats, forecast — lives in one file.
+**Why it's wrong:** Impossible to read, impossible to debug, impossible to reuse pieces.
+**The fix:** Each component is its own file. `App.jsx` should only contain the top-level layout and state.
+
+### ❌ Mistake 5: Putting State Too High
+**What happens:** You store `activeTab` in `App` even though only `RightColumn` needs it.
+**Why it's wrong:** Clicking a tab re-renders the ENTIRE app including the left side, navbar, everything. Wasteful and can cause performance issues later.
+**The fix:** Store state in the lowest component that contains all consumers of that state.
+
+### ❌ Mistake 6: Prop Name Confusion
+**What happens:** You name a prop `windSpeed` inside `StatCard`. Then it feels wrong when you use `StatCard` for "Humidity."
+**Why it's wrong:** The prop is named too specifically. `StatCard` should be generic.
+**The fix:** Use generic prop names like `label`, `value`, `icon`.
+
+### ❌ Mistake 7: Styling Before Assembly
+**What happens:** You spend 3 hours making `StatCard` pixel-perfect (exact shadows, exact border-radius, exact icon sizes) before building any other component.
+**Why it's wrong:** When you assemble everything, the proportions might be off and you'll redo the styling anyway.
+**The fix:** Get rough versions working, assemble the full page, THEN polish.
+
+### ❌ Mistake 8: Not Using the Design Reference
+**What happens:** You code from memory, guess at colors, and the result looks nothing like the design.
+**The fix:** Keep your screenshot open in a separate window at ALL times. Glance at it constantly.
+
+### ❌ Mistake 9: Skipping the CSS Variables
+**What happens:** You hardcode `#cce0ff` in 14 different CSS files. Later you want to change the blue tone, and you have to find & replace all 14.
+**The fix:** Define colors, spacings, and border-radius as CSS variables in `index.css`. Reference them everywhere.
+
+### ❌ Mistake 10: Trying to Learn Everything at Once
+**What happens:** You try to use state, effects, context, routing, and APIs all in your first component.
+**Why it's wrong:** Cognitive overload. You can't learn 5 new concepts simultaneously.
+**The fix:** Phase 1-3 uses ONLY props and JSX — things you already know. State comes in Phase 4. APIs come in Phase 5. One new concept per phase.
 
 ---
 
-> **You now have the mental architecture of a React developer. You know WHAT to build, in WHAT order, WHERE data lives, and WHY. The only thing left is the doing — and that's the fun part. Build one component at a time, starting with `StatCard`. Keep this guide open next to your code editor.**
+# PART 14 · React Docs → SkyCast Map
+
+## ✅ Concepts You Already Know (Apply Them Immediately)
+
+| React Docs Chapter | Where You'll Use It in SkyCast | Specific Example |
+|---|---|---|
+| **Your First Component** | Every single file in the tree diagram | `StatCard` is a component. `ForecastRow` is a component. You'll create ~14 of them. |
+| **Importing & Exporting** | Every parent imports its children | `StatsGrid.jsx` imports `StatCard`. `App.jsx` imports `MainLayout`. `ForecastList.jsx` imports `ForecastRow`. |
+| **Writing Markup with JSX** | The structure inside every component | Inside `StatCard`, you'll have JSX that creates the icon, the label text, and the value text, all arranged in a box. |
+| **JavaScript in JSX** | Displaying dynamic values | Instead of writing "12°F" as text, you write `{temperature}°{unit}`. Instead of "Rainy", you write `{condition}`. The curly braces insert the JavaScript variable's value. |
+| **Passing Props** | Literally everywhere | `StatsGrid` renders `StatCard` 6 times, each time passing different `label` and `value` props. `ForecastList` renders `ForecastRow` 7 times, each time passing different `time` and `temperature` props. |
+
+## 📚 Concepts You're About to Learn (And Where They Appear)
+
+| React Docs Chapter | Where You'll Use It in SkyCast | Specific Example |
+|---|---|---|
+| **Conditional Rendering** | Showing/hiding parts of the UI based on conditions | "IF `isLoading` is true, show a spinner. ELSE show the dashboard." — "IF the active tab is 'today', show hourly data. IF it's 'tomorrow', show tomorrow's data." — "IF the weather icon is 'sunny', render a sun image. IF it's 'rainy', render rain image." |
+| **Rendering Lists** | The right panel's 7 forecast rows + the left panel's 6 stat cards | You'll have an array like `[{time: "1AM", temp: 12}, {time: "2AM", temp: 11}, ...]` and use `.map()` to generate one `ForecastRow` per array item. Same for `StatCard` — you could have a stats array and `.map()` over it. |
+| **Keeping Components Pure** | Every "display" component | `StatCard` MUST produce the same output every time it receives the same `icon`, `label`, and `value`. It must NOT modify any variable outside itself. It must NOT trigger side effects. It's a pure function of its props. |
+| **Your UI as a Tree** | The entire tree diagram in Part 2 | React organizes your components in a tree structure. Data flows from root to leaves. The tree determines what re-renders when state changes (Part 7). |
+
+## 🔮 Concepts You Haven't Read Yet (But Will Need for Phases 4-5)
+
+| Concept | Why You'll Need It | When |
+|---|---|---|
+| **useState** | To track active tab, theme, weather data, loading state | Phase 4 |
+| **Event Handling** | To react when the user clicks a tab, types in search, toggles theme | Phase 4 |
+| **useEffect** | To fetch weather data from an API when the app loads or city changes | Phase 5 |
+| **Async/Await** | To handle the API call (network requests are asynchronous) | Phase 5 |
+
+> [!NOTE]
+> **You do NOT need to read about `useState`, `useEffect`, or event handling right now.** Phases 1-3 use only concepts you already know: JSX, components, importing/exporting, props. Get the entire UI built first, then learn the interactive concepts when you actually need them.
+
+---
+
+# PART 15 · The Pre-Build Checklist
+
+Before writing EACH component, answer these 5 questions on paper or in your head:
+
+## ✍️ The 5 Questions
+
+### Q1: What does this component display?
+Write one sentence. Example: "StatCard displays an icon, a label, and a value inside a rounded box."
+
+### Q2: What props does it need?
+List each prop by name and type. Example: "icon (string), label (string), value (string)."
+
+### Q3: Does it have any children components?
+If yes, which ones? Example: "StatsGrid has 6 StatCard children."
+
+### Q4: Does it need any state?
+If yes, what and why? Example: "TabGroup needs activeTab state because the user can change which tab is selected."
+
+### Q5: What CSS layout does it use?
+Flexbox or Grid? Horizontal or vertical? Example: "StatCard uses Flexbox, vertical direction, centered content."
+
+## Worked Examples
+
+### Example: StatCard
+
+| Question | Answer |
+|---|---|
+| Q1: Displays? | An icon, a label ("Wind"), and a value ("1 mph") in a small rounded card |
+| Q2: Props? | `icon` (string), `label` (string), `value` (string) |
+| Q3: Children? | No children components. Just HTML elements inside it. |
+| Q4: State? | No. It just displays what it receives. |
+| Q5: CSS? | Flexbox column. Icon on top-left, label below, value at bottom in large text. Rounded corners, subtle border. |
+
+### Example: RightColumn
+
+| Question | Answer |
+|---|---|
+| Q1: Displays? | The entire right side panel: tabs at the top, forecast rows below |
+| Q2: Props? | `forecastData` (object with today/tomorrow/tenDays arrays) |
+| Q3: Children? | `ForecastHeader` (which has `TabGroup`) and `ForecastList` (which has `ForecastRow`s) |
+| Q4: State? | Yes — `activeTab` to track which tab (Today/Tomorrow/10 Days) is selected |
+| Q5: CSS? | Flexbox column. Header at top, scrollable list filling remaining space. |
+
+---
+
+# PART 16 · What to Google When You're Stuck
+
+When you're stuck, what you search for matters. Here are the exact queries for the most common problems you'll face:
+
+### Layout Problems
+
+| Problem | Search This |
+|---|---|
+| Can't get two columns side-by-side | "CSS Grid two column layout" |
+| Cards are stretching weird in a grid | "CSS Grid equal height cards" |
+| Content is overflowing the right panel | "CSS overflow y scroll container" |
+| Navbar items won't space out properly | "Flexbox space between align center" |
+| The page isn't centered | "CSS center content max-width margin auto" |
+
+### React Problems
+
+| Problem | Search This |
+|---|---|
+| Component isn't showing up | "React component not rendering check" |
+| Props showing as `undefined` | "React props undefined debugging" |
+| List is rendering but without unique identifiers | "React key prop when rendering list" |
+| Don't know how to pass a function to child | "React pass function as prop to child component" |
+| Parent needs to know about child event | "React child to parent communication callback" |
+| State change not reflecting | "React useState not updating immediately" |
+
+### CSS Problems
+
+| Problem | Search This |
+|---|---|
+| CSS in one component leaking to another | "React CSS modules vs BEM naming" |
+| Background gradient not covering full page | "CSS background gradient full page body min-height" |
+| Rounded corners with inner shadow like the design | "CSS border-radius box-shadow card design" |
+| Making a single card match the design exactly | "CSS card design with icon and text layout" |
+
+### When You're Completely Lost
+
+| Situation | Do This |
+|---|---|
+| "I don't know where to start" | Re-read Phase 1 of Part 12. Build one `StatCard` with hardcoded props. |
+| "My layout is broken and I can't figure out why" | Open browser DevTools → Inspect → check the box model of each element |
+| "I've been stuck for 30+ minutes" | Take a 10-minute break. Then try deleting your failed attempt and starting that ONE component over |
+| "The design is too complex" | Build the simplified version first (just `SearchBar`, `CurrentWeatherHero`, 3 `StatCard`s, 3 `ForecastRow`s). Add the advanced layout later. |
+
+---
+
+# THE BIG PICTURE — Two Analogies to Remember
+
+## 🍽️ Analogy 1: The Restaurant
+
+| SkyCast Component | Restaurant Role | What They Do |
+|---|---|---|
+| `App` | Restaurant Owner | Knows everything. Holds all the data. Makes all the big decisions. |
+| `MainLayout` | Floor Plan | Decides there's a dining room (left) and a bar (right). Doesn't serve food. |
+| `StatsGrid` | Waiter | Takes data from the kitchen (App) and delivers it to the right tables (StatCards). |
+| `StatCard` | Plate | Doesn't cook. Doesn't take orders. Just presents whatever food (data) is placed on it, beautifully. |
+| `SearchBar` | Front Desk Phone | When a customer calls (user types), the phone doesn't decide what to do — it rings the owner (calls the callback), and the owner handles it. |
+| `ForecastRow` | Menu Item Card | One row on the menu board. It doesn't decide the menu — the kitchen tells it what to display. |
+
+## 🏗️ Analogy 2: Building a House
+
+| Phase | House Building | SkyCast Building |
+|---|---|---|
+| Phase 1 | Make individual bricks | Build `StatCard`, `ForecastRow` |
+| Phase 2 | Assemble bricks into walls | Build `StatsGrid`, `ForecastList` |
+| Phase 3 | Put up the frame and roof | Build `MainLayout`, `Navbar` |
+| Phase 4 | Install plumbing and electricity | Add state and interactivity |
+| Phase 5 | Connect to city water supply | Connect to weather API |
+| Phase 6 | Paint, decorate, furnish | Polish colors, animations, responsive design |
+
+You wouldn't connect a house to the city water supply before building the walls. Same with SkyCast — don't touch the API until the UI is complete.
+
+---
+
+> [!IMPORTANT]
+> ## Your Next Step
+>
+> 1. Read through this guide once, cover to cover.
+> 2. Keep it open in a tab next to your code editor.
+> 3. Open your design screenshot in another tab.
+> 4. Start **Phase 1, Step 3:** Build a single `StatCard` with hardcoded props.
+> 5. Before building each new component, answer the **5 Pre-Build Questions** from Part 15.
+> 6. When stuck, use the **search queries** from Part 16.
+>
+> **You are not copying code. You are building architecture. Every component you create reinforces the mental model. By the end of this project, you will think in components naturally.**
