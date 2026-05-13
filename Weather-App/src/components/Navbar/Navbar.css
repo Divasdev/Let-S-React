@@ -1,0 +1,14 @@
+.navbar {
+  background: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-primary);
+  color: var(--text-primary);
+}
+
+.nav-link {
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--primary-400);
+}
+
