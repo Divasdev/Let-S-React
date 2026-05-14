@@ -1,0 +1,166 @@
+.sun-moon-card {
+  width: 100%;
+  padding: 24px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: white;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sun-moon-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr 1fr;
+  align-items: center;
+  gap: 32px;
+}
+
+/* LEFT SECTION */
+
+.summary-left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.summary-icon {
+  font-size: 2rem;
+}
+
+.summary-info p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 4px;
+}
+
+.summary-info h3 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* TIME BLOCKS */
+
+.summary-center,
+.summary-right {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.time-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.time-icon {
+  font-size: 1.6rem;
+}
+
+.time-block p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 3px;
+}
+
+.time-block h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* ARC SECTION */
+
+.arc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+
+.sun-arc {
+  position: relative;
+  width: 220px;
+  height: 110px;
+}
+
+.arc-line {
+  width: 220px;
+  height: 110px;
+
+  border-top-left-radius: 220px;
+  border-top-right-radius: 220px;
+
+  border: 5px solid transparent;
+  border-bottom: 0;
+}
+
+/* YELLOW ARC */
+
+.yellow {
+  border-top-color: #ffb400;
+  border-left-color: #ffb400;
+
+  border-right: 5px dashed rgba(255, 180, 0, 0.6);
+}
+
+/* BLUE ARC */
+
+.blue {
+  border-top-color: #5a9cff;
+  border-left-color: #5a9cff;
+
+  border-right: 5px dashed rgba(90, 156, 255, 0.6);
+}
+
+/* DOTS */
+
+.arc-dot {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+}
+
+.yellow-dot {
+  background: #ffb400;
+  box-shadow: 0 0 20px #ffb400;
+}
+
+.blue-dot {
+  background: #5a9cff;
+  box-shadow: 0 0 20px #5a9cff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .sun-moon-content {
+    grid-template-columns: 1fr;
+  }
+
+  .arc-section {
+    align-items: center;
+  }
+}

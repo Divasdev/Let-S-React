@@ -3,6 +3,7 @@ import { StatsGrid } from "../StatsGrid/StatsGrid";
 import { CurrentWeatherCard } from "../CurrentWeatherHero/CurrentWeatherHero";
 
 import { ForecastList } from "../Forecast/ForecastList";
+import { SunMoonCard } from "../SunMoonCard/SunMoonCard";
 import "./MainLayout.css";
 
 export function MainLayout() {
@@ -13,6 +14,8 @@ export function MainLayout() {
       <div className="left-panel">
             <CurrentWeatherCard />  
             <StatsGrid />
+            <SunMoonCard />
+
       </div>
 
 
