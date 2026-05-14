@@ -19,3 +19,26 @@
 
   padding: 24px;
 }
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.left-top {
+  width: 100%;
+}
+
+.left-stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.left-bottom {
+  width: 100%;
+}

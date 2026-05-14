@@ -1,5 +1,6 @@
+import { StatsGrid } from "../StatsGrid/StatsGrid";
 
-
+import { CurrentWeatherCard } from "../CurrentWeatherHero/CurrentWeatherHero";
 import "./MainLayout.css";
 
 export function MainLayout() {
@@ -8,8 +9,10 @@ export function MainLayout() {
 
       {/* Left Column */}
       <div className="left-panel">
-        <h2>Left Panel</h2>
+            <CurrentWeatherCard />  
+            <StatsGrid />
       </div>
+
 
       {/* Right Column */}
       <div className="right-panel">

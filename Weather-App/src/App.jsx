@@ -1,13 +1,10 @@
-import { StatsGrid } from "./components/StatsGrid/StatsGrid";
-
-import { ForecastList } from "./components/Forecast/ForecastList";
-
+import { MainLayout } from "./components/Layout/MainLayout";
 function App(){
   return(
 
       <>
-          <StatsGrid />
-          <ForecastList />
+          <MainLayout />
+          
       </>
 
   )
