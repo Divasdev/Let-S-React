@@ -1,0 +1,21 @@
+.main-layout {
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  gap: 24px;
+
+  padding: 24px;
+
+  background: #bfc2d3;
+}
+
+.left-panel,
+.right-panel {
+  background: #e8ebf7;
+
+  border-radius: 28px;
+
+  padding: 24px;
+}
