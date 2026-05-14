@@ -1,26 +1,17 @@
-import StatCard from "./components/StatsGrid/StatsGrid";
-import "./components/StatsGrid/StatsGrid.css";
+import { StatsGrid } from "./components/StatsGrid/StatsGrid";
 
-function StatsGrid() {
-
-  return (
-    <div>
-      <StatCard />
-      <StatCard />
-      <StatCard />
-      <StatCard />
-      <StatCard />
-      <StatCard />
-     
-    </div>
-  );
-  
-}
+import { ForecastList } from "./components/Forecast/ForecastList";
 
 function App(){
-  return (
-      <StatsGrid />
-  );
+  return(
+
+      <>
+          <StatsGrid />
+          <ForecastList />
+      </>
+
+  )
+  
 }
 
 

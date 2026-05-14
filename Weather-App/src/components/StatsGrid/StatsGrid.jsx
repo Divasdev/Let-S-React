@@ -1,14 +1,19 @@
-function StatsCard() {
-  return (
-    <div className="stat-card">
-      <div className="stat-top">
-        <div className="stat-icon">🌪️</div>
-        <span className="stat-title">Air Quality</span>
-      </div>
+ import StatCard from "./StatCard";
+ import "./StatsGrid.css";
+ 
+ export function StatsGrid() {
 
-      <h3 className="stat-value">156</h3>
+  return (
+    <div className="stats-grid">
+      <StatCard />
+      <StatCard />
+      <StatCard />
+      <StatCard />
+      <StatCard />
+      <StatCard />
+     
     </div>
   );
+  
 }
 
-export default StatsCard;
