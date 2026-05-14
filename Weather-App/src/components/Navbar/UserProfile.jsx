@@ -11,8 +11,9 @@ export function UserProfile(){
          </button>
 
          <div className="profile">
-            <span className="user-profile">🧓🏼</span>
+            <span>🧓🏼</span>
             <span>Hey! Divas</span>
+            <span className="profile-arrow">⌄</span>
          </div>
 
       </div>

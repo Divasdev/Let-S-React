@@ -1,156 +1,162 @@
+/* ========================================
+   Sun & Moon Summary Card — Light theme
+======================================== */
+
 .sun-moon-card {
   width: 100%;
   padding: 24px;
-  border-radius: 28px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08),
-    rgba(255, 255, 255, 0.03)
-  );
+  border-radius: var(--radius-2xl);
 
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
 
-  color: white;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .card-title {
-  font-size: 1.4rem;
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 28px;
-  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+  color: var(--text-primary);
 }
 
+/* Grid layout: Left info | Center times | Arcs | Right times */
 .sun-moon-content {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1.4fr 1fr;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
 }
 
-/* LEFT SECTION */
+/* LEFT SECTION — Icon + Label + Value */
 
 .summary-left {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
 .summary-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .summary-icon {
-  font-size: 2rem;
+  font-size: 24px;
 }
 
 .summary-info p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
 }
 
 .summary-info h3 {
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
-/* TIME BLOCKS */
+/* TIME BLOCKS — Sunrise/Sunset labels */
 
 .summary-center,
 .summary-right {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 28px;
 }
 
 .time-block {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .time-icon {
-  font-size: 1.6rem;
+  font-size: 18px;
 }
 
 .time-block p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 3px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
 }
 
 .time-block h3 {
-  font-size: 1.4rem;
+  font-size: 14px;
   font-weight: 700;
+  color: var(--text-primary);
 }
 
-/* ARC SECTION */
+/* ARC SECTION — Sun/Moon arc visualizations */
 
 .arc-section {
   display: flex;
   flex-direction: column;
-  gap: 42px;
+  gap: 24px;
+  align-items: center;
 }
 
 .sun-arc {
   position: relative;
-  width: 220px;
-  height: 110px;
+  width: 160px;
+  height: 80px;
 }
 
 .arc-line {
-  width: 220px;
-  height: 110px;
+  width: 160px;
+  height: 80px;
 
-  border-top-left-radius: 220px;
-  border-top-right-radius: 220px;
+  border-top-left-radius: 160px;
+  border-top-right-radius: 160px;
 
-  border: 5px solid transparent;
+  border: 4px solid transparent;
   border-bottom: 0;
 }
 
-/* YELLOW ARC */
+/* YELLOW ARC (Sun) */
 
 .yellow {
-  border-top-color: #ffb400;
-  border-left-color: #ffb400;
+  border-top-color: #f59e0b;
+  border-left-color: #f59e0b;
 
-  border-right: 5px dashed rgba(255, 180, 0, 0.6);
+  border-right: 4px dashed rgba(245, 158, 11, 0.4);
 }
 
-/* BLUE ARC */
+/* BLUE ARC (Moon) */
 
 .blue {
-  border-top-color: #5a9cff;
-  border-left-color: #5a9cff;
+  border-top-color: #3b82f6;
+  border-left-color: #3b82f6;
 
-  border-right: 5px dashed rgba(90, 156, 255, 0.6);
+  border-right: 4px dashed rgba(59, 130, 246, 0.4);
 }
 
-/* DOTS */
+/* DOTS on the arc */
 
 .arc-dot {
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 50%;
+  transform: translateX(-50%);
 
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
 
   border-radius: 50%;
 }
 
 .yellow-dot {
-  background: #ffb400;
-  box-shadow: 0 0 20px #ffb400;
+  background: #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
 }
 
 .blue-dot {
-  background: #5a9cff;
-  box-shadow: 0 0 20px #5a9cff;
+  background: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
 }
 
 /* RESPONSIVE */
@@ -158,6 +164,7 @@
 @media (max-width: 1200px) {
   .sun-moon-content {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .arc-section {

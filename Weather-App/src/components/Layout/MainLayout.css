@@ -1,33 +1,35 @@
+/* ========================================
+   MAIN LAYOUT — Two-column grid
+======================================== */
+
 .main-layout {
-  min-height: 100vh;
+  flex: 1;
 
   display: grid;
   grid-template-columns: 3fr 2fr;
 
-  gap: 24px;
-
-  padding: 24px;
-}
-
-.left-panel,
-.right-panel {
-  background: var(--panel-bg);
-
-  border-radius: var(--radius-2xl);
-
-  padding: 24px;
+  gap: 20px;
 }
 
 .left-panel {
   display: flex;
   flex-direction: column;
 
-  gap: 24px;
+  gap: 20px;
 }
 
 .right-panel {
   display: flex;
   flex-direction: column;
 
-  overflow: hidden;
+  background: var(--card-bg);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  padding: 24px;
+
+  max-height: calc(100vh - 100px);
 }

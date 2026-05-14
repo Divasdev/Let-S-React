@@ -9,4 +9,30 @@
   flex-direction: column;
 
   overflow-y: auto;
+
+  padding-right: 4px;
+}
+
+/* Custom scrollbar for forecast list */
+.forecast-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.forecast-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.forecast-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+/* Scroll indicator at bottom */
+.scroll-indicator {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+
+  color: var(--accent-blue);
+  font-size: 14px;
 }

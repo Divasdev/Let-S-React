@@ -1,31 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   /* ========================================
      COLORS
   ======================================== */
 
-  --bg-app: #c4c7db;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
+  --bg-app: linear-gradient(
+    160deg,
+    #c9cce6 0%,
+    #bdc4e0 30%,
+    #d0c8e4 60%,
+    #c4c0de 100%
+  );
 
-  --panel-bg: #e8ebf7;
-  --card-bg: #d6d7e2;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+
+  --panel-bg: rgba(255, 255, 255, 0.5);
+  --card-bg: rgba(255, 255, 255, 0.5);
   --card-border: rgba(255, 255, 255, 0.7);
 
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #0ea5e9;
+  --accent-blue: #3b82f6;
+  --accent-dark: #0f172a;
 
   /* ========================================
      SHADOWS
   ======================================== */
 
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.1);
-  --shadow-md: 0 4px 8px rgba(0,0,0,0.2);
-  --shadow-lg: 0 10px 20px rgba(0,0,0,0.3);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 24px rgba(0,0,0,0.1);
   --shadow-card:
     inset 0 1px 0 rgba(255,255,255,0.5),
-    0 8px 20px rgba(0,0,0,0.08);
+    0 8px 32px rgba(0,0,0,0.04);
 
   /* ========================================
      RADIUS
@@ -59,4 +66,5 @@ body {
   background: var(--bg-app);
   color: var(--text-primary);
   font-family: 'Inter', 'Segoe UI', sans-serif;
+  min-height: 100vh;
 }

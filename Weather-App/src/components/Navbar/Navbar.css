@@ -1,3 +1,7 @@
+/* ========================================
+   NAVBAR — Light theme, matching reference
+======================================== */
+
 .navbar {
   width: 100%;
 
@@ -5,46 +9,68 @@
   align-items: center;
   justify-content: space-between;
 
-  gap: 24px;
+  gap: 20px;
 
-  padding: 18px 28px;
-
-  background: rgba(15, 23, 42, 0.65);
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
-
-  border-radius: 24px;
-
-  backdrop-filter: blur(18px);
-
-  box-shadow:
-    0 8px 30px rgba(0, 0, 0, 0.18),
-    inset 0 1px 1px rgba(255, 255, 255, 0.04);
+  padding: 12px 24px;
+  background: var(--card-bg);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* LEFT */
+/* LEFT GROUP */
 
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
-/* CENTER */
+/* BRAND LOGO */
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+
+  font-size: 20px;
+
+  color: var(--text-primary);
+
+  cursor: pointer;
+}
+
+.brand-text {
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--text-primary);
+}
+
+/* CENTER GROUP */
 
 .navbar-center {
   flex: 1;
 
   display: flex;
   justify-content: center;
+
+  max-width: 400px;
 }
 
-/* RIGHT */
+/* RIGHT GROUP */
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
 }
 
 /* LOCATION DISPLAY */
@@ -52,44 +78,41 @@
 .location-display {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 
-  padding: 10px 16px;
+  color: var(--text-primary);
 
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  color: white;
+  font-size: 14px;
 }
 
 .location-name {
-  font-size: 0.95rem;
+  font-size: 14px;
   font-weight: 500;
 }
 
-/* THEME BUTTON */
+/* THEME TOGGLE BUTTON */
 
 .toggle-btn {
-  padding: 10px 16px;
+  padding: 8px 18px;
 
   border: none;
-  border-radius: 14px;
+  border-radius: 20px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--accent-blue);
 
   color: white;
 
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  transition: var(--transition-fast);
 }
 
 .toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 /* USER PROFILE */
@@ -97,53 +120,69 @@
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .notification-btn,
 .settings-btn {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
 
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
 
-  color: white;
+  color: var(--text-primary);
+
+  font-size: 16px;
 
   cursor: pointer;
 
-  transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: var(--transition-fast);
 }
 
 .notification-btn:hover,
 .settings-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .profile {
-  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-  border-radius: 14px;
+  padding: 6px 12px;
 
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
 
-  color: white;
+  color: var(--text-primary);
 
+  font-size: 14px;
   font-weight: 600;
+
+  cursor: pointer;
+}
+
+.profile-arrow {
+  font-size: 12px;
+  color: var(--text-secondary);
 }
 
 /* RESPONSIVE */
 
 @media (max-width: 1100px) {
   .navbar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-wrap: wrap;
   }
 
-  .navbar-left,
-  .navbar-right {
-    justify-content: space-between;
+  .navbar-center {
+    order: 3;
+    max-width: 100%;
+    flex-basis: 100%;
   }
 }

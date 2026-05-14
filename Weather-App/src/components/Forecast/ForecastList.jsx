@@ -8,13 +8,17 @@ export function ForecastList(){
       <div className="forecast-container">
         <TabGroup />
 
-        <ForecastRow />
-        <ForecastRow />
-        <ForecastRow />
-        <ForecastRow />
-        <ForecastRow />
-        <ForecastRow />
-        <ForecastRow />
+        <div className="forecast-rows">
+          <ForecastRow />
+          <ForecastRow />
+          <ForecastRow />
+          <ForecastRow />
+          <ForecastRow />
+          <ForecastRow />
+          <ForecastRow />
+        </div>
+
+        <div className="scroll-indicator">▼</div>
       </div>
    )
 }
