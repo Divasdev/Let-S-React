@@ -1,6 +1,8 @@
 import { StatsGrid } from "../StatsGrid/StatsGrid";
 
 import { CurrentWeatherCard } from "../CurrentWeatherHero/CurrentWeatherHero";
+
+import { ForecastList } from "../Forecast/ForecastList";
 import "./MainLayout.css";
 
 export function MainLayout() {
@@ -16,7 +18,7 @@ export function MainLayout() {
 
       {/* Right Column */}
       <div className="right-panel">
-        <h2>Right Panel</h2>
+       <ForecastList />
       </div>
 
     </div>

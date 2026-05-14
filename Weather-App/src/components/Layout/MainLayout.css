@@ -2,20 +2,18 @@
   min-height: 100vh;
 
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 3fr 2fr;
 
   gap: 24px;
 
   padding: 24px;
-
-  background: #bfc2d3;
 }
 
 .left-panel,
 .right-panel {
-  background: #e8ebf7;
+  background: var(--panel-bg);
 
-  border-radius: 28px;
+  border-radius: var(--radius-2xl);
 
   padding: 24px;
 }
@@ -27,18 +25,9 @@
   gap: 24px;
 }
 
-.left-top {
-  width: 100%;
-}
+.right-panel {
+  display: flex;
+  flex-direction: column;
 
-.left-stats-grid {
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 18px;
-}
-
-.left-bottom {
-  width: 100%;
+  overflow: hidden;
 }

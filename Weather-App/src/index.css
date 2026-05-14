@@ -1,4 +1,16 @@
 :root {
+  /* ========================================
+     COLORS
+  ======================================== */
+
+  --bg-app: #c4c7db;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+
+  --panel-bg: #e8ebf7;
+  --card-bg: #d6d7e2;
+  --card-border: rgba(255, 255, 255, 0.7);
+
   --success: #22c55e;
   --warning: #f59e0b;
   --danger: #ef4444;
@@ -11,29 +23,9 @@
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.1);
   --shadow-md: 0 4px 8px rgba(0,0,0,0.2);
   --shadow-lg: 0 10px 20px rgba(0,0,0,0.3);
-
-  /* ========================================
-     GRADIENTS
-  ======================================== */
-
-  --gradient-primary: linear-gradient(
-    135deg,
-    #3b82f6,
-    #8b5cf6
-  );
-
-  --gradient-card: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.01)
-  );
-
-  --gradient-hero: linear-gradient(
-    135deg,
-    #0f172a,
-    #1e293b,
-    #111827
-  );
+  --shadow-card:
+    inset 0 1px 0 rgba(255,255,255,0.5),
+    0 8px 20px rgba(0,0,0,0.08);
 
   /* ========================================
      RADIUS
@@ -43,6 +35,7 @@
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 24px;
+  --radius-2xl: 28px;
 
   /* ========================================
      TRANSITIONS
@@ -65,5 +58,5 @@
 body {
   background: var(--bg-app);
   color: var(--text-primary);
-  font-family: Inter, sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
