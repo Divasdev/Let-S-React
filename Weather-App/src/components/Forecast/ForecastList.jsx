@@ -16,6 +16,7 @@ export function ForecastList(){
           <ForecastRow />
           <ForecastRow />
           <ForecastRow />
+          <ForecastRow />
         </div>
 
         <div className="scroll-indicator">▼</div>

@@ -88,3 +88,71 @@
   margin-left: auto;
   text-align: right;
 }
+
+/* ── Tablet ─────────────────────────── */
+@media (max-width: 1024px) {
+  .forecast-row {
+    gap: 14px;
+    padding: 12px 4px;
+  }
+
+  .forecast-left {
+    min-width: 130px;
+  }
+
+  .forecast-temp {
+    font-size: 26px;
+    min-width: 58px;
+  }
+}
+
+/* ── Mobile ─────────────────────────── */
+@media (max-width: 768px) {
+  .forecast-row {
+    gap: 10px;
+    padding: 10px 2px;
+  }
+
+  .forecast-left {
+    min-width: unset;
+    flex: 1;
+    gap: 10px;
+  }
+
+  .forecast-divider {
+    display: none;
+  }
+
+  .forecast-temp {
+    font-size: 22px;
+    min-width: unset;
+  }
+
+  .forecast-extra {
+    font-size: 11px;
+  }
+}
+
+/* ── Small Mobile ────────────────────── */
+@media (max-width: 480px) {
+  .forecast-row {
+    gap: 8px;
+    padding: 9px 2px;
+  }
+
+  .forecast-weather-icon {
+    font-size: 22px;
+  }
+
+  .forecast-condition {
+    font-size: 12px;
+  }
+
+  .forecast-time {
+    font-size: 11px;
+  }
+
+  .forecast-temp {
+    font-size: 20px;
+  }
+}

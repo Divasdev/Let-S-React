@@ -6,3 +6,27 @@
   flex-direction: column;
   gap: 20px;
 }
+
+/* ── Tablet ─────────────────────────── */
+@media (max-width: 1024px) {
+  .app-shell {
+    padding: 14px 18px;
+    gap: 16px;
+  }
+}
+
+/* ── Mobile ─────────────────────────── */
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 12px 14px;
+    gap: 14px;
+  }
+}
+
+/* ── Small Mobile ────────────────────── */
+@media (max-width: 480px) {
+  .app-shell {
+    padding: 10px 10px;
+    gap: 12px;
+  }
+}

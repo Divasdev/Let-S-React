@@ -4,7 +4,7 @@
 
 .sun-moon-card {
   width: 100%;
-  padding: 24px;
+  padding: 18px 20px;
   border-radius: var(--radius-2xl);
 
   background: var(--card-bg);
@@ -16,9 +16,9 @@
 }
 
 .card-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   color: var(--text-primary);
 }
 
@@ -27,7 +27,7 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr 1.4fr 1fr;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* LEFT SECTION — Icon + Label + Value */
@@ -35,27 +35,27 @@
 .summary-left {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
 .summary-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .summary-icon {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .summary-info p {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-secondary);
   margin-bottom: 2px;
 }
 
 .summary-info h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -66,27 +66,27 @@
 .summary-right {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
 }
 
 .time-block {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .time-icon {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .time-block p {
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-secondary);
   margin-bottom: 2px;
 }
 
 .time-block h3 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -96,22 +96,22 @@
 .arc-section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   align-items: center;
 }
 
 .sun-arc {
   position: relative;
-  width: 160px;
-  height: 80px;
+  width: 140px;
+  height: 70px;
 }
 
 .arc-line {
-  width: 160px;
-  height: 80px;
+  width: 140px;
+  height: 70px;
 
-  border-top-left-radius: 160px;
-  border-top-right-radius: 160px;
+  border-top-left-radius: 140px;
+  border-top-right-radius: 140px;
 
   border: 4px solid transparent;
   border-bottom: 0;
@@ -159,15 +159,54 @@
   box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 1200px) {
+/* ── Tablet ─────────────────────────── */
+@media (max-width: 1024px) {
   .sun-moon-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
 
   .arc-section {
-    align-items: center;
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+  }
+}
+
+/* ── Mobile ─────────────────────────── */
+@media (max-width: 768px) {
+  .sun-moon-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .arc-section {
+    display: none; /* Hide arcs on mobile to save space */
+  }
+
+  .summary-info h3 {
+    font-size: 16px;
+  }
+
+  .sun-moon-card {
+    padding: 14px 16px;
+  }
+}
+
+/* ── Small Mobile ────────────────────── */
+@media (max-width: 480px) {
+  .sun-moon-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .summary-info h3 {
+    font-size: 14px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    margin-bottom: 10px;
   }
 }
