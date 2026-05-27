@@ -148,6 +148,49 @@ const isLogedIn=false;
 
 
 
+const movies = [
+  {
+    title: "Interstellar",
+    year: 2014,
+    genre: "Sci-Fi",
+    isTrending:"true"
+  },
+  {
+    title: "Top Gun Maverick",
+    year: 2022,
+    genre: "Action",
+    isTrending:"false"
+  },
+  {
+    title: "Oppenheimer",
+    year: 2023,
+    genre: "Drama",
+    isTrending:"true"
+  }
+]
+
+function NetflixMovie(){
+
+   return (
+    <div>
+      {movies.map((movie)=>(
+
+         <div  key={movie.title} style={{ marginBottom: "15px" }}>
+            <p>{movie.title}</p>
+            {movie.isTrending?<p>"Trending🔥"</p>:<p>"Toprated⭐"</p>}
+            <p>{movie.year}</p>
+            <p>{movie.genre}</p>
+            
+         </div>
+      )
+      )} 
+    </div>
+   )
+  }
+    
+
+
+
 
       
 
@@ -156,6 +199,7 @@ const isLogedIn=false;
       <>
         {isAdmin ? <Admin />:<User />}
         {isLogedIn? <h1>Welcome Back!</h1>:<button>Login</button>}
+        <NetflixMovie />
       </>
     );
 
