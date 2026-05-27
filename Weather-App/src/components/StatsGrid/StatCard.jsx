@@ -1,12 +1,15 @@
-function StatCard() {
+
+
+
+function StatCard({ title, value }) {
   return (
     <div className="stat-card">
       <div className="stat-top">
-        <div className="stat-icon">🌪️</div>
-        <span className="stat-title">Air Quality</span>
+        <div className="stat-icon"></div>
+        <span className="stat-title">{title}</span>
       </div>
 
-      <h3 className="stat-value">156</h3>
+      <h3 className="stat-value">{value}</h3>
     </div>
   );
 }

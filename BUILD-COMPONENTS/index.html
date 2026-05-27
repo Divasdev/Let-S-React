@@ -119,10 +119,45 @@ function ProfileDetails(){
   )
 }
 
+
+function Admin(){
+  return(
+    <>
+      <h2>Admin Panel</h2>
+      <input type="text" placeholder="Enter admin email" />
+      <button>Login as Admin</button>
+    </>
+  )
+}
+
+function User(){
+  return(
+    <>
+      <h2>User Panel</h2>
+      <input type="text" placeholder="Enter username" />
+      <button>Login as User</button>
+    </>
+  )
+}
+
+const isAdmin= true;
+
+const isLogedIn=false;
+
+
+
+
+
+
       
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<ProfileDetails />);
+    root.render(
+      <>
+        {isAdmin ? <Admin />:<User />}
+        {isLogedIn? <h1>Welcome Back!</h1>:<button>Login</button>}
+      </>
+    );
 
   </script>
 
