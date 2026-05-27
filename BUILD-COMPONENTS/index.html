@@ -1,95 +1,40 @@
+<!--
+{Step 5 — Best Beginner Props Exercises
+
+After this, try building:
+
+Beginner
+
+* Profile Card
+* Product Card
+* Movie Card
+* Book Card
+
+Intermediate
+
+* Tweet Component
+* YouTube Video Card
+* Spotify Song Card
+
+Fun Practice
+
+* IPL Player Cards
+* Aircraft Cards ✈️
+* ISRO Mission Cards 🚀
+
+That aerospace interest of yours would make aircraft cards super fun honestly.
+
+lets make this and be confident on props }
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>React Single File App</title>
-<style>
-  .current-weather-card {
-  width: 100%;
-  max-width: 1200px;
 
-  padding: 40px;
-
-  border-radius: 30px;
-
-  background: #e8ebf7;
-
-  
-
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
-/* Header */
-.weather-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.weather-label {
-  font-size: 20px;
-  color: #555;
-}
-
-.current-time {
-  font-size: 50px;
-  margin-top: 10px;
-  font-weight: 500;
-}
-
-.temperature-unit {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  font-size: 28px;
-}
-
-/* Middle Section */
-.weather-main-info {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.weather-icon {
-  font-size: 80px;
-}
-
-.temperature {
-  display: flex;
-  align-items: flex-start;
-}
-
-.temperature h1 {
-  font-size: 100px;
-  font-weight: 500;
-}
-
-.temperature span {
-  font-size: 45px;
-  margin-top: 15px;
-}
-
-.weather-details h3 {
-  font-size: 35px;
-  font-weight: 500;
-}
-
-.weather-details p {
-  font-size: 30px;
-  color: #444;
-}
-
-/* Bottom */
-.weather-description {
-  font-size: 42px;
-  line-height: 1.4;
-}
-</style>
  
 </head>
 
@@ -105,62 +50,79 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <!-- React Code -->
+
+  
   <script type="text/babel">
 
-  function CurrentWeatherCard() {
-  return (
-    <div className="current-weather-card">
+    const gamers=[
+      {
+        name:"Divas",
+        game:"Valorant",
+        rank:"Daimond"
+      },
+       {
+        name:"Tushar",
+        game:"Valorant",
+        rank:"Gold"
+      },
+       {
+        name:"Dewash",
+        game:"Valorant",
+        rank:"Pro"
+      }
+  
+  
+  ]
+    function GamerCard({name,game,rank}){
+      return(
+          <>
+           <div>{name}</div>
+           <div>game:{game}</div>
+           <div>rank:{rank}</div>
+          </>
+      )
+    }
+  function GamerInfo() {
 
-      {/* Top Section */}
-      <div className="weather-card-header">
+    return(
+      <>
+     {gamers.map((players)=>(
+      <GamerCard
+        key={players.name}
+        name={players.name}
+        game={players.game}
+        rank={players.rank}
+      />
+     ))}
+     </>
+     )
+}
 
-        <div>
-          <span className="weather-label">Current Weather</span>
-          <h3 className="current-time">2:59PM</h3>
-        </div>
-
-        <div className="temperature-unit">
-          <span>Forenheight</span>
-          <span>⌄</span>
-        </div>
-
-      </div>
-
-      {/* Middle Section */}
-      <div className="weather-main-info">
-
-        {/* Weather Icon */}
-        <div className="weather-icon">
-          🌤️
-        </div>
-
-        {/* Temperature */}
-        <div className="temperature">
-          <h1>12</h1>
-          <span>°F</span>
-        </div>
-
-        {/* Weather Details */}
-        <div className="weather-details">
-          <h3>Rainy</h3>
-          <p>Feels Like 35°</p>
-        </div>
-
-      </div>
-
-      {/* Bottom Description */}
-      <p className="weather-description">
-        There will be mostly sunny skies. The high will be 35°
-      </p>
-
-    </div>
-  );
+function ProfileCard({name,role,hobby,emoji}){
+  return(
+    <>
+      {name}
+      Role:{role}
+      Hobby:{hobby}
+      Emoji:{emoji}
+    </>
+  )
+}
+function ProfileDetails(){
+  return(
+    <ProfileCard
+        name="Divas"
+        role="Data Science Student"
+        hobby="Aviation geek"
+        emoji="✈️"
+    />
+  )
 }
 
       
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<CurrentWeatherCard />);
+    root.render(<ProfileDetails />);
 
   </script>
 
