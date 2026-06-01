@@ -148,7 +148,50 @@ const isLogedIn=false;
 
 
 
-const movies = [
+
+
+function NetflixMovie(){
+
+   return (
+    <div>
+      {movies.map((movie)=>(
+
+         <div  key={movie.title} style={{ marginBottom: "15px" }}>
+            <p>{movie.title}</p>
+            {movie.isTrending?<p>"Trending🔥"</p>:<p>"Toprated⭐"</p>}
+            <p>{movie.year}</p>
+            <p>{movie.genre}</p>
+         </div>
+      )
+      )} 
+    </div>
+   )
+  }
+
+  function EventButton(){
+    function handleClick(){
+      alert("You clicked me!")
+    }
+
+    return(
+      <div>
+    <button onClick={handleClick}>
+      Click Me
+    </button>
+
+    <button onClick={()=>{
+      alert("You are Divas!")
+
+    }}> 
+      Say My Name 
+    </button>
+    </div>
+    )
+
+  }
+
+
+  const movies = [
   {
     title: "Interstellar",
     year: 2014,
@@ -169,39 +212,57 @@ const movies = [
   }
 ]
 
-function NetflixMovie(){
 
-   return (
-    <div>
-      {movies.map((movie)=>(
+  function Alerts({ message, children }) {
+  return (
+    <button onClick={() => alert(message)}>
+      {children}
+    </button>
+  );
+}
 
-         <div  key={movie.title} style={{ marginBottom: "15px" }}>
-            <p>{movie.title}</p>
-            {movie.isTrending?<p>"Trending🔥"</p>:<p>"Toprated⭐"</p>}
-            <p>{movie.year}</p>
-            <p>{movie.genre}</p>
-            
-         </div>
-      )
-      )} 
-    </div>
-   )
+function PlayButton({ movieName }) {
+  function handlePlayClick() {
+    alert(`Playing ${movieName}!`);
   }
-    
+
+  return (
+    <button onClick={handlePlayClick}>
+      Play "{movieName}"
+    </button>
+  );
+}
+
+function UploadButton(){
+  return(
+    <>
+    {movies.map((movie) => (
+      <PlayButton
+        key={movie.title}
+        movieName={movie.title}
+      />
+    ))}
+    </>
+  )
+}
 
 
 
 
-      
+
+
+
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
-        {isAdmin ? <Admin />:<User />}
-        {isLogedIn? <h1>Welcome Back!</h1>:<button>Login</button>}
-        <NetflixMovie />
+        
       </>
     );
+
+
+
+
 
   </script>
 
