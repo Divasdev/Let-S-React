@@ -341,10 +341,36 @@ function Taskcard(){
   )
 }
 
+
+function SessionTracker(){
+  const [sessionsCompleted,setsessionsCompleted]=React.useState(0);
+
+  return(
+    <>
+      <p>Promodoro Sessions:{sessionsCompleted}</p>
+      <button onClick={()=>{
+        setsessionsCompleted(sessionsCompleted +1)
+      }}>Log Session</button>
+
+      <button onClick={()=>{
+        setsessionsCompleted(0)
+      }}>Reset</button>
+
+    </>
+  )
+}
+
+
+
+
+
+
+
+
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
-      {<Taskcard />}
+      {<SessionTracker />}
       </> 
     );
 
