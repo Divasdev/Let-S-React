@@ -310,10 +310,31 @@ function JobListing(){
 
   );
 
-  
-
-
 }
+
+
+
+
+function WorkoutCard(){
+  return(
+    <div onClick={()=>{
+      alert("Opening full run details");
+    }}>
+
+    <p>5K Run • 28 minutes • Personal Best 🎉</p>
+
+    <button onClick={(e)=>{
+      e.stopPropagation();
+      alert("Kudos Given!")
+    }}>
+     Give Kudos!
+     </button>
+    </div>
+  )
+}
+
+
+
 
 
 
@@ -328,6 +349,10 @@ function JobListing(){
       {<Drivers />}
 
       {<JobListing />}
+
+      {<WorkoutCard />}
+
+
         
       </>
     );
