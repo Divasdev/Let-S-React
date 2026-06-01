@@ -1,31 +1,3 @@
-<!--
-{Step 5 — Best Beginner Props Exercises
-
-After this, try building:
-
-Beginner
-
-* Profile Card
-* Product Card
-* Movie Card
-* Book Card
-
-Intermediate
-
-* Tweet Component
-* YouTube Video Card
-* Spotify Song Card
-
-Fun Practice
-
-* IPL Player Cards
-* Aircraft Cards ✈️
-* ISRO Mission Cards 🚀
-
-That aerospace interest of yours would make aircraft cards super fun honestly.
-
-lets make this and be confident on props }
--->
 
 
 <!DOCTYPE html>
@@ -335,26 +307,45 @@ function WorkoutCard(){
 
 
 
+function ClickCounter(){
+  const[count,setCount]=React.useState(0);
+
+  function handleClick(){
+    setCount(count+1);
+  }
+
+  return(
+    <button onClick={handleClick}>
+        Count:{count}  
+    </button>
+  )
+}
 
 
 
+function Taskcard(){
+  const [completed,setCompleted]=React.useState(false);
+  return (
+    <div>
+      <p>Complete Learning Python-Numpy</p>
+      <button onClick={()=>{
+          setCompleted(!completed)
+          }}
+          style={{
+          backgroundColor:completed? "green":"red",
+          color:"white"
+        }}
 
-
-
-
+      >{completed ? "Completed":"Mark Complete"}</button>
+    </div>
+  )
+}
 
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
-      {<Drivers />}
-
-      {<JobListing />}
-
-      {<WorkoutCard />}
-
-
-        
-      </>
+      {<Taskcard />}
+      </> 
     );
 
 
