@@ -249,6 +249,75 @@ function UploadButton(){
 
 
 
+function DriverCard({name,team}){
+    function handleCheer(){
+      alert(`Cheering for ${name}!`);
+    }
+    return (
+    <div>
+        <h2>{name}</h2>
+        <p>Team: {team}</p>
+        <button onClick={handleCheer}>
+          Cheer
+        </button>
+    </div>
+    )   
+
+}
+
+
+function Drivers(){
+  return(
+    <>
+    <DriverCard 
+      name="Max Verstappen"
+      team="Red Bull Racing" 
+    />
+    <DriverCard 
+      name="Lando Norris" 
+      team="McLaren"
+     />
+    </>
+  );
+}
+
+
+function ApplyButton({onApplyClick}){
+  return (
+    <>
+      <button onClick={onApplyClick}>
+        Apply Now
+      </button>
+    </>
+  )
+
+}
+
+function JobListing(){
+
+  function handleApply(){
+    console.log(
+      "Submitting Application for Data Science intern"
+    )
+
+    alert("Application Submitted!")
+
+  }
+
+  return(
+
+  <ApplyButton onApplyClick={handleApply}/>
+
+  );
+
+  
+
+
+}
+
+
+
+
 
 
 
@@ -256,6 +325,9 @@ function UploadButton(){
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
+      {<Drivers />}
+
+      {<JobListing />}
         
       </>
     );
