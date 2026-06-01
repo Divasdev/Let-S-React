@@ -361,7 +361,27 @@ function SessionTracker(){
 }
 
 
+function CourseWidget(){
 
+  const[showSyllabus,setshowSyllabus]=React.useState(false);
+
+
+  return(
+
+  <>
+    <h3>Mathematics for Machine Learning</h3>
+    <button onClick={()=>
+    setshowSyllabus(!showSyllabus)
+
+    }>
+      {showSyllabus?"Collapse":"Expand Syllabus"}
+    </button>
+
+    {showSyllabus && <div> Linear Algebra,Optimization,Multivariable calculus,statistics check out online resources for detailed syllabus</div>}
+
+  </>
+  )
+}
 
 
 
@@ -370,7 +390,7 @@ function SessionTracker(){
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
-      {<SessionTracker />}
+      {<CourseWidget />}
       </> 
     );
 
