@@ -1,0 +1,12 @@
+.app-layout {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #8e8d93;
+  color: #28272a;
+
+  font-family: Inter, sans-serif;
+}
+
