@@ -1,0 +1,151 @@
+/* ============================================
+   FOOTER — Nebula Flow Design System
+   Deep dark footer with glass-edge separator
+   ============================================ */
+
+.footer {
+   position: relative;
+   display: flex;
+   justify-content: space-between;
+   gap: 4rem;
+
+   padding: 4rem 2rem 3rem;
+   max-width: 1400px;
+   margin: 0 auto;
+   width: 100%;
+
+   /* Visual separator — glass-edge gradient border */
+   border-top: 1px solid transparent;
+   background-origin: border-box;
+   background-clip: padding-box, border-box;
+}
+
+/* Gradient top border drawn with a pseudo-element
+   so we get a fade-out effect on both edges */
+.footer::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 5%;
+   right: 5%;
+   height: 1px;
+   background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(197, 192, 255, 0.2) 30%,
+      rgba(93, 230, 255, 0.12) 70%,
+      transparent 100%
+   );
+}
+
+/* ---------- Brand section ---------- */
+
+.footer__brand-section {
+   max-width: 300px;
+   flex-shrink: 0;
+}
+
+/* Re-use the logo styles from Navbar.css via the same class */
+
+.footer__tagline {
+   margin-top: 1.25rem;
+}
+
+.footer__description {
+   font-family: Inter, sans-serif;
+   font-size: 0.875rem;
+   font-weight: 400;
+   line-height: 1.65;
+   color: #928ea1;
+   margin-bottom: 1.5rem;
+}
+
+.footer__copyright {
+   font-family: Inter, sans-serif;
+   font-size: 0.8125rem;
+   font-weight: 400;
+   color: #474555;
+   letter-spacing: 0.01em;
+}
+
+/* ---------- Link columns ---------- */
+
+.footer__links {
+   flex: 1;
+   display: flex;
+   justify-content: space-evenly;
+   gap: 2rem;
+}
+
+.footer__menu {
+   display: flex;
+   flex-direction: column;
+   gap: 0.875rem;
+}
+
+.footer__menu-title {
+   font-family: Inter, sans-serif;
+   font-size: 0.8125rem;
+   font-weight: 600;
+   letter-spacing: 0.06em;
+   text-transform: uppercase;
+   color: #e5e0ee;
+   margin-bottom: 0.5rem;
+}
+
+.footer__link-item {
+   display: block;
+}
+
+.footer__link-item a {
+   text-decoration: none;
+   font-family: Inter, sans-serif;
+   font-size: 0.875rem;
+   font-weight: 400;
+   color: #928ea1;
+   transition: color 0.3s ease,
+               transform 0.25s ease;
+   display: inline-block;
+}
+
+.footer__link-item a:hover {
+   color: #c5c0ff;
+   transform: translateX(3px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+   .footer {
+      flex-direction: column;
+      gap: 3rem;
+      padding: 3rem 1.25rem 2.5rem;
+   }
+
+   .footer__brand-section {
+      max-width: 100%;
+   }
+
+   .footer__links {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+   }
+
+   .footer__menu {
+      min-width: 130px;
+   }
+}
+
+@media (max-width: 480px) {
+   .footer__links {
+      flex-direction: column;
+      gap: 2.5rem;
+   }
+
+   .footer__description {
+      font-size: 0.8125rem;
+   }
+}

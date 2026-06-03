@@ -1,0 +1,228 @@
+/* ============================================
+   NAVBAR — Nebula Flow Design System
+   Glassmorphism header with sticky positioning
+   ============================================ */
+
+.navbar {
+   position: sticky;
+   top: 0;
+   z-index: 100;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   padding: 1rem 2rem;
+   max-width: 1400px;
+   margin: 0 auto;
+   width: 100%;
+}
+
+/* Glass backdrop applied to a pseudo so the blur
+   doesn't affect child elements */
+.navbar::before {
+   content: '';
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 72px;
+   z-index: -1;
+
+   background: rgba(19, 18, 27, 0.82);
+   backdrop-filter: blur(20px);
+   -webkit-backdrop-filter: blur(20px);
+   border-bottom: 1px solid rgba(197, 192, 255, 0.08);
+}
+
+/* ---------- Logo ---------- */
+
+.navbar-logo {
+   display: flex;
+   align-items: center;
+}
+
+.navbar-brand {
+   font-family: Inter, sans-serif;
+   font-size: 1.5rem;
+   font-weight: 700;
+   letter-spacing: -0.02em;
+   color: #e5e0ee;
+   background: linear-gradient(135deg, #c5c0ff 0%, #5de6ff 100%);
+   background-clip: text;
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   user-select: none;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar-nav {
+   display: flex;
+   align-items: center;
+   gap: 2rem;
+}
+
+.navbar-nav a {
+   position: relative;
+   text-decoration: none;
+   font-family: Inter, sans-serif;
+   font-size: 0.9375rem;
+   font-weight: 500;
+   color: #c8c4d8;
+   letter-spacing: 0.01em;
+   transition: color 0.3s ease;
+}
+
+.navbar-nav a:hover {
+   color: #e5e0ee;
+}
+
+/* Animated underline on hover */
+.navbar-nav a::after {
+   content: '';
+   position: absolute;
+   bottom: -4px;
+   left: 0;
+   width: 0;
+   height: 2px;
+   border-radius: 9999px;
+   background: linear-gradient(90deg, #6d5dfc, #5de6ff);
+   transition: width 0.3s ease;
+}
+
+.navbar-nav a:hover::after {
+   width: 100%;
+}
+
+/* ---------- Actions ---------- */
+
+.navbar_actions {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+}
+
+/* Theme toggle — glass circle */
+.navbar_theme-toggle {
+   display: flex;
+   align-items: center;
+}
+
+.navbar_theme-button {
+   width: 42px;
+   height: 42px;
+   border-radius: 9999px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   border: 1px solid rgba(197, 192, 255, 0.12);
+   background: rgba(32, 31, 40, 0.6);
+   backdrop-filter: blur(12px);
+   -webkit-backdrop-filter: blur(12px);
+
+   color: #c8c4d8;
+   font-size: 1.15rem;
+   cursor: pointer;
+   transition: border-color 0.3s ease,
+               background 0.3s ease,
+               transform 0.25s ease,
+               box-shadow 0.3s ease;
+}
+
+.navbar_theme-button:hover {
+   border-color: rgba(197, 192, 255, 0.28);
+   background: rgba(42, 41, 51, 0.75);
+   transform: rotate(20deg) scale(1.05);
+   box-shadow: 0 0 18px rgba(109, 93, 252, 0.15);
+}
+
+/* CTA button — primary gradient */
+.navbar_cta {
+   display: flex;
+   align-items: center;
+}
+
+.navbar_cta-button {
+   padding: 0.625rem 1.5rem;
+   border: none;
+   border-radius: 9999px;
+
+   font-family: Inter, sans-serif;
+   font-size: 0.875rem;
+   font-weight: 600;
+   letter-spacing: 0.01em;
+
+   background: linear-gradient(135deg, #6d5dfc 0%, #5441e3 100%);
+   color: #ffffff;
+   cursor: pointer;
+
+   box-shadow: 0 0 24px rgba(109, 93, 252, 0.25),
+               inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+   transition: transform 0.25s ease,
+               box-shadow 0.3s ease;
+}
+
+.navbar_cta-button:hover {
+   transform: translateY(-1px) scale(1.03);
+   box-shadow: 0 0 32px rgba(109, 93, 252, 0.4),
+               inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.navbar_cta-button:active {
+   transform: translateY(0) scale(0.98);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+   .navbar {
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+   }
+
+   .navbar::before {
+      height: auto;
+      /* let it stretch with the wrapped content */
+      bottom: 0;
+      position: absolute;
+   }
+
+   .navbar-nav {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      gap: 1.5rem;
+   }
+
+   .navbar-nav a {
+      font-size: 0.875rem;
+   }
+
+   .navbar_cta-button {
+      padding: 0.5rem 1.2rem;
+      font-size: 0.8125rem;
+   }
+}
+
+@media (max-width: 480px) {
+   .navbar-brand {
+      font-size: 1.25rem;
+   }
+
+   .navbar-nav {
+      gap: 1rem;
+   }
+
+   .navbar_theme-button {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+   }
+}
