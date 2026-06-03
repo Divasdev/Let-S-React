@@ -384,13 +384,87 @@ function CourseWidget(){
 }
 
 
+function Form(){
+  const [person,setPerson]=React.useState({
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
+    }
+  });
+
+  function handleFirstNameChange(e){
+    setPerson({
+        ...person,
+       firstName:e.target.value
+    })
+   
+  }
+
+  function handleTitleChange(e){
+    setPerson({
+      ...person,
+      artwork:{
+          ...person.artwork,
+          title:e.target.value
+
+      }
+   
+
+    })
+    
+  }
+
+  function handleEmailChange(e){
+    setPerson({
+      ...person,
+        email:e.target.value
+    })
+    
+  }
+
+  return (
+    <div>
+    <label>
+        First Name:
+        <input 
+        value={person.firstName}
+        onChange={handleFirstNameChange}
+        />
+    </label> 
+    <label>
+        Title:
+        <input 
+        value={person.lastName}
+        onChange={handleTitleChange}
+        />
+    </label> 
+    <label>
+        Email:
+        <input 
+        value={person.email}
+        onChange={handleEmailChange}
+        />
+    </label> 
+
+    <p>{person.firstName}{" "}
+        {person.lastName}{" "}
+        {person.email}{" "}
+    </p>
+    </div>
+  )
 
 
 
+}
+
+
+ 
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(
       <>
-      {<CourseWidget />}
+      {<Form />}
       </> 
     );
 
