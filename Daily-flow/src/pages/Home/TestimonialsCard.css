@@ -1,0 +1,104 @@
+.testimonial-card {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  flex: 1 1 300px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 
+    inset 1px 1px 0px 0px rgba(255, 255, 255, 0.05),
+    0 8px 32px 0 rgba(109, 93, 252, 0.05);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 1px 1px 0px 0px rgba(255, 255, 255, 0.1),
+    0 12px 40px 0 rgba(109, 93, 252, 0.1);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.reviewer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #6d5dfc, #5de6ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reviewer-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.reviewer-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e5e0ee;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.reviewer-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #c8c4d8;
+  margin: 0;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.quote-icon {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(93, 230, 255, 0.2); /* Subtle cyan tint */
+  line-height: 1;
+  position: absolute;
+  top: -8px;
+  right: 0;
+}
+
+.testimonial-body {
+  margin-top: 8px;
+}
+
+.review {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #e5e0ee;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
