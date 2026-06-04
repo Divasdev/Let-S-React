@@ -13,8 +13,6 @@ export function AppLayout() {
             <StatsSection />
             <CallToAction />
             <Footer />
-
-
          </section>
 
 
