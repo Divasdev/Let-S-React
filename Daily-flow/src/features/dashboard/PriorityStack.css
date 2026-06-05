@@ -1,0 +1,231 @@
+/* ============================================
+   PriorityStack Card
+   ============================================ */
+
+.priority-stack {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 24px;
+  transition: border-color 0.3s ease;
+}
+
+.priority-stack:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================
+   Stack Header Row
+   ============================================ */
+
+.stack-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.stack-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.stack-icon {
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(197, 192, 255, 0.1);
+  border: 1px solid rgba(197, 192, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.stack-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.stack-subtitle {
+  font-size: 13px;
+  color: #928ea1;
+  margin: 2px 0 0 0;
+}
+
+.stack-open-count {
+  font-size: 13px;
+  color: #928ea1;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+/* ============================================
+   Priority Section — Badge + Task Count
+   ============================================ */
+
+.priority-section {
+  margin-bottom: 16px;
+}
+
+.priority-section:last-child {
+  margin-bottom: 0;
+}
+
+.priority-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.priority-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  text-transform: capitalize;
+}
+
+.priority-badge.high {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.priority-badge.medium {
+  background: rgba(250, 204, 21, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(250, 204, 21, 0.25);
+}
+
+.priority-badge.low {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.priority-count {
+  font-size: 13px;
+  color: #928ea1;
+}
+
+/* ============================================
+   Task Item Row
+   ============================================ */
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  transition: border-color 0.25s ease;
+}
+
+.task-item:last-child {
+  margin-bottom: 0;
+}
+
+.task-item:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.task-item-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ============================================
+   Checkbox — Circle
+   ============================================ */
+
+.task-checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.task-checkbox.checked {
+  background: linear-gradient(135deg, #4edea3 0%, #38c98d 100%);
+  border-color: transparent;
+}
+
+.task-checkbox:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   Task Info
+   ============================================ */
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5e0ee;
+}
+
+.task-title.strikethrough {
+  text-decoration: line-through;
+  color: #6b6880;
+}
+
+.task-priority-label {
+  font-size: 12px;
+  color: #928ea1;
+}
+
+/* ============================================
+   Task Actions — Edit / Delete
+   ============================================ */
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #928ea1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #c8c4d8;
+}
+
+/* Completed task row */
+.task-done {
+  opacity: 0.7;
+}
