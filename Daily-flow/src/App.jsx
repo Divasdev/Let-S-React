@@ -1,5 +1,5 @@
 import { BrowserRouter,Routes,Route} from  "react-router-dom";
-import { ToolsRoute } from "./pages/Tools";
+import { ToolsRoute } from "./pages/Tools/Tools";
 import { AppLayout } from "./components/layout/AppLayout"
 
 
