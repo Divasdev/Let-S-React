@@ -1,3 +1,5 @@
+import { BrowserRouter,Routes,Route} from  "react-router-dom";
+import { ToolsRoute } from "./pages/Tools";
 import { AppLayout } from "./components/layout/AppLayout"
 
 
@@ -5,12 +7,13 @@ import { AppLayout } from "./components/layout/AppLayout"
 
 function App() {
    return(
-      <>
-
-      <AppLayout />
-      
-      </>
-   )
+      <BrowserRouter>
+      <Routes>
+            <Route path="/" element={<AppLayout />} />
+            <Route path="/tools" element={<ToolsRoute />} />
+      </Routes>
+      </BrowserRouter>
+   );
 }
 
 export default App

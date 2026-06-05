@@ -1,4 +1,5 @@
 import './Navbar.css';
+import { Link } from "react-router-dom";
 
 export function AppLogo(){
    return(
@@ -11,21 +12,23 @@ export function AppLogo(){
 }
 
 const links = [
-  "Home",
-  "Tools",
-  "About",
-  "Contact"
+  { name: "Home", path: "/" },
+  { name: "Tools", path: "/tools" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" }
 ];
 export function Nav(){
    return (
       <nav className='navbar-nav'>
          {links.map((link) => (
-            <span key={link}>
-               <a href="#">{link}</a>
+            <span key={link.name}>
+              <Link to={link.path}>
+                  {link.name}
+              </Link>
             </span>
          ))}
       </nav>
-   )
+   );
 }
 
 export function Toggle(){
