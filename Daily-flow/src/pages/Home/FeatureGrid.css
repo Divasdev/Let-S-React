@@ -1,0 +1,271 @@
+.features-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 24px 24px 24px; /* Reduced bottom padding to flow into stats section */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 64px;
+  max-width: 600px;
+}
+
+.features-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #e5e0ee;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.features-header p {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: #c8c4d8;
+  line-height: 1.6;
+}
+
+/* 12-Column Grid System */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+.feature-card {
+  background-color: #1b1b24; /* surface-container-low */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 1px 1px 0px 0px rgba(255, 255, 255, 0.02);
+}
+
+.feature-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+.feature-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(109, 93, 252, 0.1);
+  color: #c5c0ff; /* primary */
+}
+
+/* Customizing icon colors for the cards based on screenshot */
+.feature-priority .feature-icon {
+  background-color: rgba(34, 211, 238, 0.1);
+  color: #5de6ff; /* secondary */
+}
+.feature-progress .feature-icon {
+  background-color: rgba(78, 222, 163, 0.1);
+  color: #4edea3; /* tertiary */
+}
+
+.feature-badge {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e5e0ee;
+}
+
+.feature-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #e5e0ee;
+  margin: 0;
+}
+
+.feature-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #928ea1; /* outline */
+  line-height: 1.6;
+  margin: 0;
+}
+
+.feature-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #c8c4d8;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  transition: color 0.2s;
+}
+
+.feature-link:hover {
+  color: #c5c0ff;
+}
+
+.feature-link span {
+  font-size: 16px;
+}
+
+.feature-card-graphic {
+  width: 100%;
+}
+
+/* Grid Spans Configuration */
+.feature-focus { grid-column: span 4; }
+.feature-priority { grid-column: span 8; }
+
+/* The horizontal card */
+.feature-progress { 
+  grid-column: span 12; 
+  flex-direction: row; 
+  align-items: stretch;
+}
+
+.feature-progress .feature-card-content {
+  flex: 0 0 40%;
+  justify-content: space-between;
+}
+
+.feature-progress .feature-card-graphic {
+  flex: 0 0 60%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-left: 32px;
+}
+
+@media (max-width: 900px) {
+  .feature-focus, .feature-priority, .feature-progress {
+    grid-column: span 12;
+  }
+  .feature-progress {
+    flex-direction: column;
+  }
+  .feature-progress .feature-card-graphic {
+    padding-left: 0;
+    margin-top: 32px;
+  }
+}
+
+/* --- Specific Graphics Styling (The unique UI for each card) --- */
+
+/* Focus Graphic */
+.focus-graphic {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+.focus-bar {
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  width: 100%;
+}
+.focus-bar.short {
+  width: 70%;
+}
+
+/* Priority Graphic */
+.priority-graphic {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+.priority-item {
+  flex: 1;
+  background-color: rgba(255, 180, 171, 0.05); 
+  border: 1px solid rgba(255, 180, 171, 0.1);
+  padding: 24px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #e5e0ee;
+}
+.priority-item.routine {
+  background-color: rgba(78, 222, 163, 0.05); 
+  border: 1px solid rgba(78, 222, 163, 0.1);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot.red { background-color: #ffb4ab; box-shadow: 0 0 8px rgba(255, 180, 171, 0.5); }
+.dot.green { background-color: #4edea3; box-shadow: 0 0 8px rgba(78, 222, 163, 0.5); }
+
+/* Progress Graphic */
+.chart-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 180px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+.chart-bar {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+}
+.chart-bar:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.chart-bar.h-20 { height: 20%; }
+.chart-bar.h-30 { height: 30%; }
+.chart-bar.h-40 { height: 40%; }
+.chart-bar.h-50 { height: 50%; }
+.chart-bar.h-60 { height: 60%; }
+.chart-bar.h-80 { height: 80%; }
+
+.chart-bar.highlight-cyan {
+  background-color: #2b6c7a; /* Muted cyan */
+  box-shadow: 0 -4px 16px rgba(93, 230, 255, 0.1);
+}
+.chart-bar.highlight-purple {
+  background-color: #6d5dfc; /* Primary */
+  box-shadow: 0 -4px 16px rgba(109, 93, 252, 0.2);
+}
