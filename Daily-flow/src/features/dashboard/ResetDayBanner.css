@@ -1,0 +1,77 @@
+/* ============================================
+   ResetDayBanner Card
+   ============================================ */
+
+.reset-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 24px;
+  transition: border-color 0.3s ease;
+}
+
+.reset-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.reset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.reset-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reset-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.reset-subtitle {
+  font-size: 13px;
+  color: #928ea1;
+  margin: 0;
+}
+
+.reset-heart {
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reset-card:hover .reset-heart {
+  opacity: 0.8;
+}
+
+.reset-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.6) 0%, rgba(239, 68, 68, 0.3) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
+}
+
+.reset-btn:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.7) 0%, rgba(239, 68, 68, 0.4) 100%);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
+  transform: translateY(-1px);
+}
