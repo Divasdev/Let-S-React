@@ -4,8 +4,8 @@
    ============================================ */
 
 .stats-section {
-   padding: 4rem 2rem;
-   margin: 4rem auto;
+   padding: 24px 24px 4rem 24px; /* Align side padding with FeaturesGrid, reduced top padding */
+   margin: 0 auto 4rem auto; /* Removed massive top margin */
    max-width: 1200px;
    width: 100%;
    position: relative;
