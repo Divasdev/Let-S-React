@@ -1,0 +1,40 @@
+/* ============================================
+   Tools Page — Two-Column Grid Layout
+   ============================================ */
+
+.tools-page {
+  min-height: 100vh;
+  background: #13121b;
+}
+
+.tools-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 24px 64px 24px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.tools-col-left,
+.tools-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+  .tools-container {
+    padding: 16px 16px 48px 16px;
+  }
+}
