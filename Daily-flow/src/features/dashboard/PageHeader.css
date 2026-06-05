@@ -1,0 +1,58 @@
+.tools-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 2rem;
+}
+.tools-header-text {
+  max-width: 600px;
+
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.header-stat-chips {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 0.75rem 1rem;
+  min-width: 100px;
+  min-height: 100px;
+
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+}
+.stat-icon {
+  font-size: 1.2rem;
+}
+
+.stat-task {
+  display: block;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+
+.stat-text {
+  display: block;
+
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
