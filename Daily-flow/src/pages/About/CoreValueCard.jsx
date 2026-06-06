@@ -1,4 +1,4 @@
-import "./CoreValuesCard.css";
+import "./CoreValueCard.css";
 
 
 export function CoreValuesCard({ icon,title,text}){
