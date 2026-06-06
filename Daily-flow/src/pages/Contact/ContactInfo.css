@@ -1,0 +1,43 @@
+/* ============================================
+   CONTACT INFO — Two-column layout
+   Left: stacked info cards · Right: form panel
+   Nebula Flow Design System
+   ============================================ */
+
+.contact-info {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+/* ─── Left column: card stack ─── */
+
+.contact-cards__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Right column: form wrapper ─── */
+
+.contact-form__wrapper {
+  /* let the form fill naturally */
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 900px) {
+  .contact-info {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 20px 64px;
+  }
+
+  .contact-cards__stack {
+    /* On mobile, cards stack normally */
+  }
+}
