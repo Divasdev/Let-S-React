@@ -1,9 +1,13 @@
-/* ─── Product Showcase Section ─── */
+/* ============================================
+   PRODUCT SHOWCASE — Meet the Product section
+   Title · Subtitle · 2-column image cards
+   Nebula Flow Design System
+   ============================================ */
 
 .product-showcase {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 96px 24px;
+  padding: 16px 24px 96px;
 }
 
 .showcase-title {
@@ -12,7 +16,7 @@
   font-weight: 700;
   color: #e5e0ee;
   letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  margin: 0 0 12px;
 }
 
 .showcase-subtitle {
@@ -21,51 +25,55 @@
   font-weight: 400;
   color: #928ea1;
   line-height: 1.5;
-  margin-bottom: 48px;
+  margin: 0 0 48px;
 }
 
-/* ─── Product Cards Row ─── */
+/* ─── Cards grid ─── */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
 
 .product-card {
-  display: inline-block;
-  width: calc(50% - 12px);
-  vertical-align: top;
   background: #1b1b24;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
   overflow: hidden;
-  margin-right: 24px;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
-  position: relative;
-}
-
-.product-card:last-child {
-  margin-right: 0;
 }
 
 .product-card:hover {
   transform: translateY(-6px);
   box-shadow:
     0 24px 48px rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(109, 93, 252, 0.12);
+    0 0 0 1px rgba(109, 93, 252, 0.1);
 }
 
 /* ─── Card Image ─── */
 
-.product-card img {
+.product-card-img {
   width: 100%;
   height: 220px;
-  object-fit: cover;
-  display: block;
+  overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.product-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
   transition: transform 0.5s ease;
 }
 
-.product-card:hover img {
-  transform: scale(1.04);
+.product-card:hover .product-card-img img {
+  transform: scale(1.05);
 }
 
-/* ─── Card Text Content ─── */
+/* ─── Card Text ─── */
 
 .card-head {
   font-family: 'Inter', sans-serif;
@@ -81,8 +89,8 @@
   font-size: 14px;
   font-weight: 400;
   color: #928ea1;
-  line-height: 1.6;
-  padding: 8px 24px 28px;
+  line-height: 1.65;
+  padding: 10px 24px 28px;
   margin: 0;
 }
 
@@ -90,21 +98,18 @@
 
 @media (max-width: 768px) {
   .product-showcase {
-    padding: 64px 20px;
+    padding: 16px 20px 64px;
   }
 
   .showcase-title {
     font-size: 28px;
   }
 
-  .product-card {
-    display: block;
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
+  .product-grid {
+    grid-template-columns: 1fr;
   }
 
-  .product-card img {
+  .product-card-img {
     height: 180px;
   }
 }

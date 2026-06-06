@@ -13,7 +13,9 @@ export function ProductShowcase() {
                Designed to get out of your way
             </h4>
 
-            <ProductCards />
+            <div className="product-grid">
+               <ProductCards />
+            </div>
 
          </div>
       </>
@@ -23,7 +25,7 @@ const product = [
    {
       path:focusImg,
       title: "Focus Mode",
-      text: "clear the canvas and mute the notifications with a single click to enter deep work"
+      text: "Clear the canvas and mute the notifications with a single click to enter deep work"
    },
    {
       path:analyticsImg,
@@ -36,13 +38,13 @@ const product = [
 export function ProductCards() {
    return (
       <>
-        
          {product.map((desc) => {
 
             return (
-               <>
                   <div className="product-card" key={desc.title} >
-                     <img src={desc.path}></img>
+                     <div className="product-card-img">
+                        <img src={desc.path} alt={desc.title} />
+                     </div>
                   
                      <h4 className="card-head">
                         {desc.title}
@@ -52,7 +54,6 @@ export function ProductCards() {
                         {desc.text}
                      </p>
                   </div>
-               </>
             );
          })}
       </>
