@@ -1,21 +1,22 @@
-import { BrowserRouter,Routes,Route} from  "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToolsRoute } from "./pages/Tools/Tools";
 import { AppLayout } from "./components/layout/AppLayout"
 
 import { About } from "./pages/About/about";
-import { Contact } from "./pages/Contact";
+import { Contact } from "./pages/Contact/Contact";
 
 
 
 function App() {
-   return(
+   return (
       <BrowserRouter>
-      <Routes>
-            <Route path="/" element={<AppLayout />} />
+         <Routes>
+            <Route path="/" element={
+               <AppLayout />} />
             <Route path="/tools" element={<ToolsRoute />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-      </Routes>
+         </Routes>
       </BrowserRouter>
    );
 }
