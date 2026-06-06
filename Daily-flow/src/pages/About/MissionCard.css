@@ -1,0 +1,122 @@
+/* ============================================
+   MISSION CARD — Glassmorphism split card
+   Text left · Image right
+   Nebula Flow Design System
+   ============================================ */
+
+.mission-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  background: #1b1b24;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top-color: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 52px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* Ambient glow behind the card */
+.card-content::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 55%;
+  height: 140%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(109, 93, 252, 0.06) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Text side ─── */
+
+.card-text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: #e5e0ee;
+  margin: 0 0 20px;
+}
+
+.card-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #928ea1;
+  margin: 0;
+  max-width: 440px;
+}
+
+/* ─── Image side ─── */
+
+.card-content img {
+  width: 340px;
+  max-width: 42%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.45));
+  transition: transform 0.4s ease;
+}
+
+.card-content img:hover {
+  transform: scale(1.02);
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+  .mission-card {
+    padding: 0 20px 64px;
+  }
+
+  .card-content {
+    flex-direction: column;
+    padding: 36px 28px;
+    gap: 32px;
+  }
+
+  .card-header {
+    font-size: 26px;
+  }
+
+  .card-text {
+    max-width: 100%;
+  }
+
+  .card-content img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+}
