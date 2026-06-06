@@ -1,0 +1,110 @@
+/* ─── Product Showcase Section ─── */
+
+.product-showcase {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 24px;
+}
+
+.showcase-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #e5e0ee;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.showcase-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #928ea1;
+  line-height: 1.5;
+  margin-bottom: 48px;
+}
+
+/* ─── Product Cards Row ─── */
+
+.product-card {
+  display: inline-block;
+  width: calc(50% - 12px);
+  vertical-align: top;
+  background: #1b1b24;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-right: 24px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+}
+
+.product-card:last-child {
+  margin-right: 0;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(109, 93, 252, 0.12);
+}
+
+/* ─── Card Image ─── */
+
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.04);
+}
+
+/* ─── Card Text Content ─── */
+
+.card-head {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #e5e0ee;
+  padding: 24px 24px 0;
+  margin: 0;
+}
+
+.card-para {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #928ea1;
+  line-height: 1.6;
+  padding: 8px 24px 28px;
+  margin: 0;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+  .product-showcase {
+    padding: 64px 20px;
+  }
+
+  .showcase-title {
+    font-size: 28px;
+  }
+
+  .product-card {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .product-card img {
+    height: 180px;
+  }
+}
