@@ -1,0 +1,66 @@
+/* ============================================
+   CORE VALUES GRID — Section wrapper
+   Heading + subtitle + 3-col card layout
+   Nebula Flow Design System
+   ============================================ */
+
+.values-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 24px 96px;
+  text-align: center;
+}
+
+/* ─── Section heading ─── */
+
+.values-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #e5e0ee;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+
+.values-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #928ea1;
+  line-height: 1.5;
+  margin: 0 0 52px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── Card grid ─── */
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 900px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .values-section {
+    padding: 16px 20px 64px;
+  }
+
+  .values-heading {
+    font-size: 28px;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}

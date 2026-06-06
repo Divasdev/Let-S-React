@@ -1,10 +1,9 @@
-import "./CoreValueCard.css";
+import "./CorevalueCard.css";
 
 
 export function CoreValuesCard({ icon,title,text}){
 
    return (
-      <>
       <div className="value-card">
          <span className="icon-name">
             {icon}
@@ -16,7 +15,6 @@ export function CoreValuesCard({ icon,title,text}){
             {text}
          </p>
       </div>
-      </>
    )
 
 }
