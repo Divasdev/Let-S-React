@@ -2,7 +2,11 @@ import "./PriorityStack.css";
 
 
 
-export function PriorityStack({ tasks }) {
+export function PriorityStack({ 
+   tasks,
+   onComplete,
+   onDelete
+ }) {
 
    const highTasks = tasks.filter(
       (task) => task.priority === "high"
@@ -55,7 +59,10 @@ export function PriorityStack({ tasks }) {
                {highTasks.map((task) => (
                   <TaskItem
                      key={task.id}
-                     task={task} />
+                     task={task} 
+                     onComplete={onComplete}
+                     onDelete={onDelete}
+                     />
                ))}
             </PrioritySection>
 
@@ -72,7 +79,11 @@ export function PriorityStack({ tasks }) {
                {mediumTasks.map((task) => (
                   <TaskItem
                      key={task.id}
-                     task={task} />
+                     task={task} 
+                     onComplete={onComplete}
+                     onDelete={onDelete}
+                     />
+                     
                ))}
             </PrioritySection>
 
@@ -88,7 +99,10 @@ export function PriorityStack({ tasks }) {
                {lowTasks.map((task) => (
                   <TaskItem
                      key={task.id}
-                     task={task} />
+                     task={task} 
+                     onComplete={onComplete}
+                     onDelete={onDelete}
+                     />
                ))}
             </PrioritySection>
 
@@ -109,7 +123,11 @@ function PrioritySection({ label, variant, count, children }) {
    );
 }
 
-function TaskItem({ task }) {
+function TaskItem({ 
+     task,
+   onComplete,
+   onDelete
+ }) {
 
    return (
 
@@ -117,7 +135,10 @@ function TaskItem({ task }) {
 
          <div className="task-item-left">
 
-            <div className={`task-checkbox ${task.done ? "checked" : ""}`}>
+            <div 
+            className={`task-checkbox ${task.done ? "checked" : ""}`}
+            onClick={()=>onComplete(task.id)}
+            >
 
                {task.done && (
 
@@ -179,7 +200,10 @@ function TaskItem({ task }) {
 
             <button className="action-btn">✏️</button>
 
-            <button className="action-btn">🗑️</button>
+            <button 
+            className="action-btn"
+           onClick={() => onDelete(task.id)}
+            >🗑️</button>
 
          </div>
 

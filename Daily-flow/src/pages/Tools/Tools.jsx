@@ -39,12 +39,13 @@ export function ToolsRoute() {
       }
 
 
-   function handleDelete(id){
+   function handleDeleteTask(id){
       const filteredArray=tasks.filter(task=>{
          return task.id!==id;
       });
       setTasks(filteredArray);
    }
+
    
    return (
       <div className="tools-page">
@@ -56,7 +57,11 @@ export function ToolsRoute() {
                <div className="tools-col-left">
                   <TodayFocusCard />
                   <TaskCreator  onAddTask={handleAddTask} />
-                  <PriorityStack  tasks={tasks} />
+                  <PriorityStack  
+                  tasks={tasks} 
+                  onComplete={handleCompleteTask}
+                  onDelete={handleDeleteTask}
+                  />
                </div>
                {/* Right column */}
                <div className="tools-col-right">
