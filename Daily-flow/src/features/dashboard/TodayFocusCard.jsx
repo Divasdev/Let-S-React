@@ -1,6 +1,9 @@
 import "./TodayFocusCard.css";
-
+import { useState } from "react";
 export function TodayFocusCard() {
+       
+   const[focusText,setFocusText]=useState("");
+      
    return (
       <div className="focus-card">
          <div className="focus-header">
@@ -22,6 +25,14 @@ export function TodayFocusCard() {
                className="focus-textarea"
                placeholder="Ship one small improvement to the digital tools hub."
                rows="3"
+               value={focusText}
+
+               onChange={(e)=>{
+                  setFocusText(e.target.value)
+               }}
+
+
+            
             ></textarea>
          </div>
       </div>

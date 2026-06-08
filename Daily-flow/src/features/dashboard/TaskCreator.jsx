@@ -1,6 +1,13 @@
+import { useState } from "react";
 import "./TaskCreator.css";
 
 export function TaskCreator() {
+
+   const [inputValue,setInputValue]=useState("");
+   const [selectedPriority,setSelectedPriority]=useState("medium")
+
+   const priorities=["High","Medium","Low"]
+
    return (
       <div className="task-card">
          <div className="task-header">
@@ -22,11 +29,26 @@ export function TaskCreator() {
                className="task-input"
                placeholder="Design the task card states"
                type="text"
+
+               value={inputValue}
+               onChange={(e)=>setInputValue(e.target.value)}
             />
-            <select className="task-priority-select" defaultValue="medium">
-               <option value="low">Low</option>
-               <option value="medium">Medium</option>
-               <option value="high">High</option>
+            <select
+                  className="task-priority-select" 
+                  value={selectedPriority}
+                  onChange={(e)=>setSelectedPriority(e.target.value)}
+            >
+               {priorities.map((priotiy)=>{
+                  return(
+
+                      <option key={priotiy} value={priotiy.toLowerCase()}>
+                     {priotiy}
+                  </option>
+
+
+                  )
+                 
+               })}
             </select>
             <button className="task-add-btn">
                + Add Task
