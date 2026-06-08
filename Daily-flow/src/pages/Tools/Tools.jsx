@@ -23,6 +23,29 @@ export function ToolsRoute() {
       setTasks([...tasks, task]);
    }
       console.log(tasks);
+
+
+   function  handleCompleteTask(id){
+      const updatedTasks=tasks.map(task=>{
+         if(task.id===id){
+            return {
+               ...task,
+               done:!task.done
+            };
+         }
+         return task;
+      });
+      setTasks(updatedTasks);
+      }
+
+
+   function handleDelete(id){
+      const filteredArray=tasks.filter(task=>{
+         return task.id!==id;
+      });
+      setTasks(filteredArray);
+   }
+   
    return (
       <div className="tools-page">
          <Navbar />
