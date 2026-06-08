@@ -13,12 +13,12 @@ import { useState } from "react";
 export function ToolsRoute() {
    const [tasks,setTasks]=useState([]);
 
-   function handleAddTask(task){
-      if(tasks.title.trim()===""){
-            return;
+   function handleAddTask(task) {
+      if (task.title.trim() === "") {
+         return;
       }
-      setTasks([...tasks,task])
-      
+
+      setTasks([...tasks, task]);
    }
       console.log(tasks);
    return (
@@ -30,7 +30,7 @@ export function ToolsRoute() {
                {/* Left column */}
                <div className="tools-col-left">
                   <TodayFocusCard />
-                  <TaskCreator />
+                  <TaskCreator  onAddTask={handleAddTask} />
                   <PriorityStack />
                </div>
                {/* Right column */}

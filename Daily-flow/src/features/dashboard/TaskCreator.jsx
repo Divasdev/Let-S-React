@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./TaskCreator.css";
 
-export function TaskCreator() {
+export function TaskCreator({ onAddTask }) {
 
    const [inputValue,setInputValue]=useState("");
    const [selectedPriority,setSelectedPriority]=useState("medium")
@@ -47,7 +47,29 @@ export function TaskCreator() {
                   )
                })}
             </select>
-            <button className="task-add-btn">
+            <button
+             className="task-add-btn"
+             onClick={()=>{
+               if(inputValue.trim()===""){
+                  return;
+               }
+               const newTask=
+               {
+                  id:Date.now().toString(),
+                  title:inputValue,
+                  priority:selectedPriority,
+                  done:false,
+                  createdAt:Date.now()
+               }
+
+               onAddTask(newTask);
+               setInputValue("");
+
+
+               
+
+             }}
+             >
                + Add Task
             </button>
          </div>
