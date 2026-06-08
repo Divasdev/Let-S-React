@@ -54,13 +54,15 @@ export function TaskCreator({ onAddTask }) {
                   return;
                }
                const newTask=
-               {
+                  {
                   id:Date.now().toString(),
                   title:inputValue,
                   priority:selectedPriority,
                   done:false,
                   createdAt:Date.now()
                }
+               
+               
 
                onAddTask(newTask);
                setInputValue("");

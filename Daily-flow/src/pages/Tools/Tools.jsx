@@ -14,6 +14,8 @@ export function ToolsRoute() {
    const [tasks,setTasks]=useState([]);
 
    function handleAddTask(task) {
+
+      console.log("recieved",task);
       if (task.title.trim() === "") {
          return;
       }
@@ -31,7 +33,7 @@ export function ToolsRoute() {
                <div className="tools-col-left">
                   <TodayFocusCard />
                   <TaskCreator  onAddTask={handleAddTask} />
-                  <PriorityStack />
+                  <PriorityStack  tasks={tasks} />
                </div>
                {/* Right column */}
                <div className="tools-col-right">
