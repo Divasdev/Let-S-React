@@ -44,10 +44,7 @@ export function TaskCreator() {
                       <option key={priotiy} value={priotiy.toLowerCase()}>
                      {priotiy}
                   </option>
-
-
                   )
-                 
                })}
             </select>
             <button className="task-add-btn">

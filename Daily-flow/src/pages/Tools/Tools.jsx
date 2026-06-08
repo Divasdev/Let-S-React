@@ -8,8 +8,19 @@ import { ProgressBar } from "../../features/dashboard/ProgressBar";
 import { QuickNotes } from "../../features/dashboard/QuickNotes";
 import { ResetDayBanner } from "../../features/dashboard/ResetDayBanner";
 import "./Tools.css";
+import { useState } from "react";
 
 export function ToolsRoute() {
+   const [tasks,setTasks]=useState([]);
+
+   function handleAddTask(task){
+      if(tasks.title.trim()===""){
+            return;
+      }
+      setTasks([...tasks,task])
+      
+   }
+      console.log(tasks);
    return (
       <div className="tools-page">
          <Navbar />
