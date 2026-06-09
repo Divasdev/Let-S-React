@@ -1,19 +1,18 @@
 import "./PageHeader.css";
 
-const statChips = [
-   {
-      icon: "📅",
-      task: "4",
-      text: "Tasks today"
-   },
-   {
-      icon: "☑️",
-      task: "1",
-      text: "Completed"
-   }
-];
-
-export function PageHeader() {
+export function PageHeader({totalTasks,completedCount}) {
+   const statChips = [
+      {
+         icon: "📅",
+         task: totalTasks,
+         text: "Tasks today"
+      },
+      {
+         icon: "☑️",
+         task: completedCount,
+         text: "Completed"
+      }
+   ];
    return (
       <div className="tools-header">
          <div>

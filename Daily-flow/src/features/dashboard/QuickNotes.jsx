@@ -1,6 +1,6 @@
 import "./QuickNotes.css";
 
-export function QuickNotes() {
+export function QuickNotes({notes,onNotesChange}) {
    return (
       <div className="notes-card">
          <div className="notes-header">
@@ -21,6 +21,9 @@ export function QuickNotes() {
                className="notes-textarea"
                placeholder="Demo notes: keep the planner simple, show the priority flow, then reset the day at the end."
                rows="6"
+
+               value={notes}
+               onChange={(e)=>onNotesChange(e.target.value)}
             ></textarea>
          </div>
       </div>

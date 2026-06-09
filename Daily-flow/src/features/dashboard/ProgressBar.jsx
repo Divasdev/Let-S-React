@@ -41,3 +41,4 @@ export function ProgressBar({ progress,completedCount,totalTasks }) {
       </div>
    );
 }
+

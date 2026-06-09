@@ -49,16 +49,19 @@ export function ToolsRoute() {
    }
    
    
-    const totalTask = tasks.length;
-    const completeCount = tasks.filter((task) => task.done).length;
-    const percentage = totalTask === 0 ? 0 : Math.round((completeCount / totalTask) * 100);
+    const totalTasks = tasks.length;
+    const completedCount = tasks.filter((task) => task.done).length;
+    const percentage = totalTasks === 0 ? 0 : Math.round((completedCount / totalTasks) * 100);
 
-
+   const [notes,setNotes]=useState("");
    return (
       <div className="tools-page">
          <Navbar />
          <main className="tools-container">
-            <PageHeader />
+            <PageHeader
+               totalTasks={totalTasks}
+               completedCount={completedCount}
+            />
             <div className="tools-grid">
                {/* Left column */}
                <div className="tools-col-left">
@@ -74,11 +77,14 @@ export function ToolsRoute() {
                <div className="tools-col-right">
                   <ProgressBar
                    progress={percentage}
-                   completedCount={completeCount}
-                   totalTasks={totalTask}
+                   completedCount={completedCount}
+                   totalTasks={totalTasks}
                   
                   />
-                  <QuickNotes />
+                  <QuickNotes 
+                     notes={notes}
+                     onNotesChange={setNotes}
+                  />
                   <ResetDayBanner />
                </div>
             </div>
