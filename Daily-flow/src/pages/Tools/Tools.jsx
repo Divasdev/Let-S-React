@@ -54,6 +54,11 @@ export function ToolsRoute() {
     const percentage = totalTasks === 0 ? 0 : Math.round((completedCount / totalTasks) * 100);
 
    const [notes,setNotes]=useState("");
+
+   function handleResetDay(){
+     setTasks([]);
+     setNotes('');
+   }
    return (
       <div className="tools-page">
          <Navbar />
@@ -85,7 +90,9 @@ export function ToolsRoute() {
                      notes={notes}
                      onNotesChange={setNotes}
                   />
-                  <ResetDayBanner />
+                  <ResetDayBanner
+                     onReset={handleResetDay}
+                  />
                </div>
             </div>
          </main>
