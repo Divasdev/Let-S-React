@@ -1,6 +1,8 @@
 import "./ProgressBar.css";
 
-export function ProgressBar({ progress = 25 }) {
+export function ProgressBar({ progress,completedCount,totalTasks }) {
+
+
    return (
       <div className="progress-card">
          <div className="progress-header">
@@ -28,11 +30,11 @@ export function ProgressBar({ progress = 25 }) {
 
          <div className="progress-stats">
             <div className="progress-stat-box">
-               <span className="stat-number">1</span>
+               <span className="stat-number">{completedCount}</span>
                <span className="stat-label">Done</span>
             </div>
             <div className="progress-stat-box">
-               <span className="stat-number">4</span>
+               <span className="stat-number">{totalTasks-completedCount}</span>
                <span className="stat-label">Planned</span>
             </div>
          </div>

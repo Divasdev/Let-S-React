@@ -11,6 +11,8 @@ import "./Tools.css";
 import { useState } from "react";
 
 export function ToolsRoute() {
+
+   
    const [tasks,setTasks]=useState([]);
 
    function handleAddTask(task) {
@@ -45,8 +47,13 @@ export function ToolsRoute() {
       });
       setTasks(filteredArray);
    }
-
    
+   
+    const totalTask = tasks.length;
+    const completeCount = tasks.filter((task) => task.done).length;
+    const percentage = totalTask === 0 ? 0 : Math.round((completeCount / totalTask) * 100);
+
+
    return (
       <div className="tools-page">
          <Navbar />
@@ -65,7 +72,12 @@ export function ToolsRoute() {
                </div>
                {/* Right column */}
                <div className="tools-col-right">
-                  <ProgressBar progress={25} />
+                  <ProgressBar
+                   progress={percentage}
+                   completedCount={completeCount}
+                   totalTasks={totalTask}
+                  
+                  />
                   <QuickNotes />
                   <ResetDayBanner />
                </div>
