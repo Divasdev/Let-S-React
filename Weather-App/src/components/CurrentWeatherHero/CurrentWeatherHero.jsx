@@ -9,6 +9,9 @@ import { weatherData } from "../../../data.js";
     });
 
     const tempinC = (((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
+
+    const feelsLike=(((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
+
   return (
     <div className="current-weather-card">
 
