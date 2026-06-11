@@ -13,6 +13,13 @@
   padding-right: 4px;
 }
 
+/* Rows wrapper — ensures cards stack vertically */
+.forecast-rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 /* Custom scrollbar for forecast list */
 .forecast-container::-webkit-scrollbar {
   width: 4px;
