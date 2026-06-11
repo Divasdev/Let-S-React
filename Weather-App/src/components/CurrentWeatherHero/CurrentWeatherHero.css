@@ -5,7 +5,7 @@
 .current-weather-card {
   width: 100%;
 
-  padding: 24px 28px;
+  padding: 16px 20px;
 
   border-radius: var(--radius-2xl);
 
@@ -17,7 +17,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 /* Header: "Current Weather / 2:59PM" on left, "Forenheight ⌄" on right */
@@ -34,8 +34,8 @@
 }
 
 .current-time {
-  font-size: 22px;
-  margin-top: 4px;
+  font-size: 18px;
+  margin-top: 2px;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -58,7 +58,7 @@
 }
 
 .weather-icon {
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .temperature h1 {
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 500;
   line-height: 1;
   color: var(--text-primary);
