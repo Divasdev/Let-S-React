@@ -1,6 +1,14 @@
 import "./CurrentWeatherHero.css";
-  
+import { weatherData } from "../../../data.js"; 
   export function CurrentWeatherCard() {
+    const currentTime= new Date().toLocaleTimeString([],{
+
+      hour:"numeric",
+      minute:"2-digit",
+      hour12:true
+    });
+
+    const tempinC = (((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
   return (
     <div className="current-weather-card">
 
@@ -9,7 +17,7 @@ import "./CurrentWeatherHero.css";
 
         <div>
           <span className="weather-label">Current Weather</span>
-          <h3 className="current-time">2:59PM</h3>
+          <h3 className="current-time">{currentTime}</h3>
         </div>
 
         <div className="temperature-unit">
@@ -29,14 +37,14 @@ import "./CurrentWeatherHero.css";
 
         {/* Temperature */}
         <div className="temperature">
-          <h1>12</h1>
-          <span>°F</span>
+          <h1>{tempinC}</h1>
+          <span>°C</span>
         </div>
 
         {/* Weather Details */}
         <div className="weather-details">
-          <h3>Rainy</h3>
-          <p>Feels Like 35°</p>
+          <h3>{weatherData.currentWeather.condition}</h3>
+          <p>Feels Like {weatherData.currentWeather.feelsLike}</p>
         </div>
 
       </div>

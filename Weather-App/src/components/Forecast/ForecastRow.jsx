@@ -1,6 +1,6 @@
 import "./ForecastRow.css";
 
-export function ForecastRow({ time, icon, condition, temp, wind, humidity }) {
+export function ForecastRow({ time,  condition, temp, wind, humidity }) {
   const tempC = (((temp ?? 32) - 32) * 5 / 9).toFixed(1);
 
   return (
