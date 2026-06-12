@@ -36,9 +36,8 @@ import { useState } from "react";
           <option value="F">Fahrenheit</option>
           <option value="C">Celsius</option>
          </select>
-          <span>⌄</span>
+          
         </div>
-
       </div>
 
       {/* Middle Section */}
@@ -64,7 +63,7 @@ import { useState } from "react";
 
       {/* Bottom Description */}
       <p className="weather-description">
-        There will be mostly sunny skies. The high will be 35°
+        {weatherData.currentWeather.description}
       </p>
 
     </div>

@@ -1,6 +1,8 @@
 import "./SunMoonCard.css";
+import { weatherData } from "../../../data.js"; 
 
 export function SunMoonCard() {
+
 
   return (
     <div className="sun-moon-card">
@@ -17,7 +19,7 @@ export function SunMoonCard() {
 
             <div className="summary-info">
               <p>Air Quality</p>
-              <h3>156</h3>
+              <h3>{weatherData.weatherStats[0].value}</h3>
             </div>
           </div>
 
@@ -26,7 +28,7 @@ export function SunMoonCard() {
 
             <div className="summary-info">
               <p>Air Quality</p>
-              <h3>156</h3>
+              <h3>{weatherData.weatherStats[0].value}</h3>
             </div>
           </div>
 
@@ -40,7 +42,7 @@ export function SunMoonCard() {
 
             <div>
               <p>Sunrise</p>
-              <h3>5:43AM</h3>
+              <h3>{weatherData.sunMoonData.sunrise}</h3>
             </div>
           </div>
 
@@ -48,8 +50,8 @@ export function SunMoonCard() {
             <div className="time-icon">☀️</div>
 
             <div>
-              <p>Sunrise</p>
-              <h3>5:43AM</h3>
+              <p>Moonrise</p>
+              <h3>{weatherData.sunMoonData.moonrise}</h3>
             </div>
           </div>
 
@@ -77,8 +79,8 @@ export function SunMoonCard() {
             <div className="time-icon">☀️</div>
 
             <div>
-              <p>Sunrise</p>
-              <h3>5:43AM</h3>
+              <p>Sunset</p>
+              <h3>{weatherData.sunMoonData.sunset}</h3>
             </div>
           </div>
 
@@ -86,8 +88,8 @@ export function SunMoonCard() {
             <div className="time-icon">☀️</div>
 
             <div>
-              <p>Sunrise</p>
-              <h3>5:43AM</h3>
+              <p>Moonset</p>
+              <h3>{weatherData.sunMoonData.moonset}</h3>
             </div>
           </div>
 
