@@ -1,8 +1,13 @@
 import "./SunMoonCard.css";
-import { weatherData } from "../../../data.js"; 
 
-export function SunMoonCard() {
+export function SunMoonCard({ weatherData }) {
 
+  if (!weatherData || !weatherData.forecast) {
+    return <p>Loading sun & moon...</p>;
+  }
+
+  const astro = weatherData.forecast.forecastday[0].astro;
+  const current = weatherData.current;
 
   return (
     <div className="sun-moon-card">
@@ -15,20 +20,20 @@ export function SunMoonCard() {
         <div className="summary-left">
 
           <div className="summary-item">
-            <div className="summary-icon">☀️</div>
+            <div className="summary-icon">💨</div>
 
             <div className="summary-info">
-              <p>Air Quality</p>
-              <h3>{weatherData.weatherStats[0].value}</h3>
+              <p>Wind</p>
+              <h3>{current.wind_kph} km/h</h3>
             </div>
           </div>
 
           <div className="summary-item">
-            <div className="summary-icon">☀️</div>
+            <div className="summary-icon">💧</div>
 
             <div className="summary-info">
-              <p>Air Quality</p>
-              <h3>{weatherData.weatherStats[0].value}</h3>
+              <p>Humidity</p>
+              <h3>{current.humidity}%</h3>
             </div>
           </div>
 
@@ -42,16 +47,16 @@ export function SunMoonCard() {
 
             <div>
               <p>Sunrise</p>
-              <h3>{weatherData.sunMoonData.sunrise}</h3>
+              <h3>{astro.sunrise}</h3>
             </div>
           </div>
 
           <div className="time-block">
-            <div className="time-icon">☀️</div>
+            <div className="time-icon">🌙</div>
 
             <div>
               <p>Moonrise</p>
-              <h3>{weatherData.sunMoonData.moonrise}</h3>
+              <h3>{astro.moonrise}</h3>
             </div>
           </div>
 
@@ -76,20 +81,20 @@ export function SunMoonCard() {
         <div className="summary-right">
 
           <div className="time-block">
-            <div className="time-icon">☀️</div>
+            <div className="time-icon">🌅</div>
 
             <div>
               <p>Sunset</p>
-              <h3>{weatherData.sunMoonData.sunset}</h3>
+              <h3>{astro.sunset}</h3>
             </div>
           </div>
 
           <div className="time-block">
-            <div className="time-icon">☀️</div>
+            <div className="time-icon">🌑</div>
 
             <div>
               <p>Moonset</p>
-              <h3>{weatherData.sunMoonData.moonset}</h3>
+              <h3>{astro.moonset}</h3>
             </div>
           </div>
 

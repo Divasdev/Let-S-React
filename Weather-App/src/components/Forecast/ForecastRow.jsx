@@ -1,7 +1,6 @@
 import "./ForecastRow.css";
 
 export function ForecastRow({ time,  condition, temp, wind, humidity }) {
-  const tempC = (((temp ?? 32) - 32) * 5 / 9).toFixed(1);
 
   return (
     <div className="forecast-card">
@@ -18,7 +17,7 @@ export function ForecastRow({ time,  condition, temp, wind, humidity }) {
         <div className="forecast-divider"></div>
 
         <div className="forecast-temp">
-          {tempC}<span>°C</span>
+          {temp}<span>°C</span>
         </div>
 
         <div className="forecast-extra">

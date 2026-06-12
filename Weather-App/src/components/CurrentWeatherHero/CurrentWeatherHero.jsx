@@ -1,9 +1,15 @@
 import "./CurrentWeatherHero.css";
-import { weatherData } from "../../../data.js"; 
-import { useState } from "react";
-  export function CurrentWeatherCard() {
 
-    const [unit,setUnit]=useState("C");
+
+
+import { useState } from "react";
+export function CurrentWeatherCard({ weatherData }) {
+   const [unit,setUnit]=useState("C");
+  if (!weatherData) {
+    return <p>Loading...</p>;
+  }
+
+   
     const currentTime= new Date().toLocaleTimeString([],{
 
       hour:"numeric",
@@ -11,10 +17,11 @@ import { useState } from "react";
       hour12:true
     });
 
-    const tempinC = (((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
-    const tempF= weatherData.currentWeather.temperature ?? 32;
-    const feelsLikeC=(((weatherData.currentWeather.feelsLike ?? 32) - 32) * 5 / 9).toFixed(1);
-    const feelsLikeF=weatherData.currentWeather.feelsLike ?? 32;
+    const tempinC = weatherData.current.temp_c;
+    const tempF= weatherData.current.temp_f;
+
+    const feelsLikeC = weatherData.current.feelslike_c;
+    const feelsLikeF = weatherData.current.feelslike_f;
 
   return (
     <div className="current-weather-card">
@@ -56,14 +63,14 @@ import { useState } from "react";
 
         {/* Weather Details */}
         <div className="weather-details">
-          <h3>{weatherData.currentWeather.condition}</h3>
+          <h3>{weatherData.current.condition.text}</h3>
           <p>Feels Like {unit==="C" ? feelsLikeC:feelsLikeF}°{unit}</p>
         </div>
       </div>
 
       {/* Bottom Description */}
       <p className="weather-description">
-        {weatherData.currentWeather.description}
+        {weatherData.current.condition.text}
       </p>
 
     </div>
