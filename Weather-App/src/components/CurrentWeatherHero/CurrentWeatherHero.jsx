@@ -1,6 +1,9 @@
 import "./CurrentWeatherHero.css";
 import { weatherData } from "../../../data.js"; 
+import { useState } from "react";
   export function CurrentWeatherCard() {
+
+    const [unit,setUnit]=useState("C");
     const currentTime= new Date().toLocaleTimeString([],{
 
       hour:"numeric",
@@ -9,8 +12,9 @@ import { weatherData } from "../../../data.js";
     });
 
     const tempinC = (((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
-
-    const feelsLike=(((weatherData.currentWeather.temperature ?? 32) - 32) * 5 / 9).toFixed(1);
+    const tempF= weatherData.currentWeather.temperature ?? 32;
+    const feelsLikeC=(((weatherData.currentWeather.feelsLike ?? 32) - 32) * 5 / 9).toFixed(1);
+    const feelsLikeF=weatherData.currentWeather.feelsLike ?? 32;
 
   return (
     <div className="current-weather-card">
@@ -24,7 +28,14 @@ import { weatherData } from "../../../data.js";
         </div>
 
         <div className="temperature-unit">
-          <span>Forenheight</span>
+         <select
+          value={unit}
+
+          onChange={(e)=>setUnit(e.target.value)}
+         >
+          <option value="F">Fahrenheit</option>
+          <option value="C">Celsius</option>
+         </select>
           <span>⌄</span>
         </div>
 
@@ -40,16 +51,15 @@ import { weatherData } from "../../../data.js";
 
         {/* Temperature */}
         <div className="temperature">
-          <h1>{tempinC}</h1>
-          <span>°C</span>
+          <h1>{unit==="C"? tempinC:tempF}</h1>
+          <span>°{unit}</span>
         </div>
 
         {/* Weather Details */}
         <div className="weather-details">
           <h3>{weatherData.currentWeather.condition}</h3>
-          <p>Feels Like {weatherData.currentWeather.feelsLike}</p>
+          <p>Feels Like {unit==="C" ? feelsLikeC:feelsLikeF}°{unit}</p>
         </div>
-
       </div>
 
       {/* Bottom Description */}
