@@ -25,7 +25,7 @@ export function Logo(){
 export function NavLinks(){
    return(
       <div className='flex items-center gap-8 text-sm font-medium text-gray-600'>
-         <a href='#'>Features</a>
+         <a href='#' className='text-blue-600'>Features</a>
          <a href='#'>Airport</a>
          <a href='#'>Flights</a>
          <a href='#'>Analytics</a>
