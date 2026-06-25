@@ -1,12 +1,12 @@
 
-
-
 import { NavBar } from './components/NavBar';
+import { FAQ } from './components/FAQ/FAQ';
 function App() {
   return (
     <>
       <NavBar />
-      <h>will continue tomoroow</h>
+      <FAQ />
+     
     </>
   );
 }
