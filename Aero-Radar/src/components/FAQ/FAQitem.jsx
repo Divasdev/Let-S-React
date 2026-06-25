@@ -24,7 +24,6 @@ export function FAQitem (){
           <div className="faq-question">
 
             <button>
-
                  <span className="faq-title">
               How accurate is the delay prediction?
             </span>
