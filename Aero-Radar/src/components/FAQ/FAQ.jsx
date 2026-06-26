@@ -1,12 +1,13 @@
 import { FAQitem } from "./FAQitem"
-export function FAQ(){
+
+export function FAQ() {
    return (
-      <>
-         <h1 className="text-center text-black font-extrabold mt-15 mb-6 text-2xl">Frequently Asked Questions</h1>
+      <section className="py-20 px-6">
+         <h2 className="text-center text-charcoal font-bold text-3xl tracking-tight mb-10">
+            Frequently Asked Questions
+         </h2>
 
          <FAQitem />
-
-      </>
+      </section>
    )
 }
-
