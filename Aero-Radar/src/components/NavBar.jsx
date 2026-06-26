@@ -18,7 +18,7 @@ export function Logo() {
    return (
       <div className='flex items-center gap-2'>
          <img src={logoImg} className='size-8 rounded-full' />
-         <h2 className='font-semibold text-charcoal'>AeroRadar</h2>
+         <h2 className='font-semibold text-charcoal text-xl'>AeroRadar</h2>
       </div>
    )
 }
