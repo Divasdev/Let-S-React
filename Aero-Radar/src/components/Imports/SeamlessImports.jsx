@@ -41,12 +41,17 @@ export function SeamlessImports() {
 
                   {/* Icon + Label */}
                   <div className="flex flex-col items-center gap-3">
-                     <div className="size-16 rounded-2xl bg-surface border border-outline-variant
-                        flex items-center justify-center shadow-card">
+                     <div
+                        className="group size-16 rounded-2xl bg-surface border border-outline-variant
+                        flex items-center justify-center shadow-card
+                        transition-all duration-300 ease-out
+                        hover:scale-110 hover:border-blue-400 hover:shadow-[0_0_24px_rgba(59,130,246,0.25)]
+                        hover:bg-blue-50/40 cursor-pointer"
+                     >
                         <img
                            src={method.icon}
                            alt={method.label}
-                           className="size-9"
+                           className="size-9 transition-transform duration-300 group-hover:scale-105"
                         />
                      </div>
                      <span className="text-xs font-medium text-on-surface-variant">
