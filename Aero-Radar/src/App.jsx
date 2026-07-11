@@ -4,10 +4,12 @@ import { FAQ } from './components/FAQ/FAQ';
 import { SeamlessImports } from './components/Imports/SeamlessImports';
 import { Airport } from './components/AirportIntelligenceSection/Airport';
 import { RadarSection } from './components/RadarSection/RadarSection';
+import { TravelStatsSection } from './components/TravelStatsSection/TravelStatsSection';
 function App() {
   return (
     <>
       <NavBar />
+      <TravelStatsSection />
       <RadarSection />
       <SeamlessImports />
       <Airport />
