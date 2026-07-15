@@ -14,6 +14,12 @@ export function TowerCard() {
 
          <div className="mt-6 bg-gray-900 rounded-xl p-4 font-mono text-sm">
             <p className="text-gray-600">KSFO METAR</p>
+
+            <p className="text-green-500">KSFO 241950Z 28015G20KT 10SM</p>
+
+            <p className="text-green-500">FEW030 15/09 A3002 RMK AO2</p>
+
+            <p className="text-green-500">SLP186 T01500089</p>
          </div>
       </div>
    )
