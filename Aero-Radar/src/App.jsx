@@ -5,10 +5,12 @@ import { SeamlessImports } from './components/Imports/SeamlessImports';
 import { Airport } from './components/AirportIntelligenceSection/Airport';
 import { RadarSection } from './components/RadarSection/RadarSection';
 import { TravelStatsSection } from './components/TravelStatsSection/TravelStatsSection';
+import { FeaturesSection } from './components/FeaturesSection/FeaturesSection';
 function App() {
   return (
     <>
       <NavBar />
+      <FeaturesSection />
       <TravelStatsSection />
       <RadarSection />
       <SeamlessImports />
