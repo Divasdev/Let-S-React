@@ -11,6 +11,10 @@ export function TowerCard() {
          </h2>
          <p className="font-medium text-gray-600">Raw ATC mandates decoded.Know exactly what stops your flight.
          </p>
+
+         <div className="mt-6 bg-gray-900 rounded-xl p-4 font-mono text-sm">
+            <p className="text-gray-600">KSFO METAR</p>
+         </div>
       </div>
    )
 }
