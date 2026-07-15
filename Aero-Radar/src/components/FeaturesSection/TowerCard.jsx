@@ -6,6 +6,9 @@ export function TowerCard() {
          <img src={signalImg}
             className="w-10 h-10 object-contain mb-5"
          />
+
+         <h2 className="font-bold text-2xl tracking-tighter mb-3">Direct from the tower.
+         </h2>
       </div>
    )
 }
