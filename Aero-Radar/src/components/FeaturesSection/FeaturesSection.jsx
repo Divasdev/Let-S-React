@@ -1,5 +1,6 @@
 import { TowerCard } from "./TowerCard"
 import { TrackAircraft } from "./TrackAircraft"
+import { NotificationCard } from "./NotificationCard"
 export function FeaturesSection() {
    return (
       <>
@@ -14,6 +15,7 @@ export function FeaturesSection() {
                </p>
                <TowerCard />
                <TrackAircraft />
+               <NotificationCard />
             </section>
 
 

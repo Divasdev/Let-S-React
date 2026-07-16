@@ -9,7 +9,7 @@ export function TowerCard() {
 
          <h2 className="font-bold text-2xl tracking-tighter mb-3">Direct from the tower.
          </h2>
-         <p className="font-medium text-gray-600">Raw ATC mandates decoded.Know exactly what stops your flight.
+         <p className="font-medium text-gray-500">Raw ATC mandates decoded.Know exactly what stops your flight.
          </p>
 
          <div className="mt-6 bg-gray-900 rounded-xl p-4 font-mono text-sm max-w-md" >
