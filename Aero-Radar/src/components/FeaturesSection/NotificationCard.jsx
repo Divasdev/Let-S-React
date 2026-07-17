@@ -20,7 +20,5 @@ export function NotificationCard() {
             </div>
          </div>
       </div>
-
-
    )
 }

@@ -1,6 +1,7 @@
 import { TowerCard } from "./TowerCard"
 import { TrackAircraft } from "./TrackAircraft"
 import { NotificationCard } from "./NotificationCard"
+import { MLCard } from "./MLCard"
 export function FeaturesSection() {
    return (
       <>
@@ -13,6 +14,7 @@ export function FeaturesSection() {
                <p className=" max-w-xl mt-4 text-gray-600 ">
                   AeroRadar keeps you informed by tracking more information about your flight than any other app.
                </p>
+               <MLCard />
                <TowerCard />
                <TrackAircraft />
                <NotificationCard />
