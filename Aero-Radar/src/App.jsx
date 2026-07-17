@@ -6,10 +6,13 @@ import { Airport } from './components/AirportIntelligenceSection/Airport';
 import { RadarSection } from './components/RadarSection/RadarSection';
 import { TravelStatsSection } from './components/TravelStatsSection/TravelStatsSection';
 import { FeaturesSection } from './components/FeaturesSection/FeaturesSection';
+import { HeroSection } from './components/HeroSection/HeroSection';
 function App() {
   return (
     <>
+      
       <NavBar />
+      <HeroSection />
       <FeaturesSection />
       <TravelStatsSection />
       <RadarSection />
