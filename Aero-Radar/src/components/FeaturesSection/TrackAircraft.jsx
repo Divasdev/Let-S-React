@@ -3,11 +3,11 @@ import aeroImg from "../../assets/aeroplane-wings.jpg";
 
 export function TrackAircraft() {
   return (
-    <div className="relative w-full max-w-xl overflow-hidden rounded-3xl shadow-2xl">
+    <div className="relative w-full overflow-hidden rounded-3xl shadow-card">
       <img
         src={aeroImg}
         alt="Aircraft wing"
-        className="h-85 w-full object-cover"
+        className="h-full w-full object-cover"
       />
 
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
