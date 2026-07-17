@@ -4,7 +4,7 @@ export function NavBar() {
 
    return (
       <nav className="max-w-6xl mx-auto mt-6 px-6 sticky top-6 z-50">
-         <div className="bg-white/50 backdrop-blur-md flex items-center justify-between px-8 py-4 border border-outline-variant rounded-pill shadow-sm">
+         <div className="bg-white/50 backdrop-blur-sm flex items-center justify-between px-8 py-4 border border-outline-variant rounded-pill shadow-sm">
             <Logo />
             <NavLinks />
             <CTAButton />
