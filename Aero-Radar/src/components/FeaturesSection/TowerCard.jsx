@@ -2,7 +2,7 @@ import signalImg from "../../assets/signal.png";
 
 export function TowerCard() {
    return (
-      <div className=" max-w-sm  shadow-lg bg-white rounded-xl p-8 mb-15 ">
+      <div className="shadow-lg bg-white rounded-3xl p-8">
          <img src={signalImg}
             className="w-10 h-10 object-contain mb-5"
          />
