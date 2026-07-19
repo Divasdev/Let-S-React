@@ -1,26 +1,6 @@
-import { Footer } from './components/Footer/Footer';
-import { NavBar } from './components/NavBar';
-import { FAQ } from './components/FAQ/FAQ';
-import { SeamlessImports } from './components/Imports/SeamlessImports';
-import { Airport } from './components/AirportIntelligenceSection/Airport';
-import { RadarSection } from './components/RadarSection/RadarSection';
-import { TravelStatsSection } from './components/TravelStatsSection/TravelStatsSection';
-import { FeaturesSection } from './components/FeaturesSection/FeaturesSection';
-import { HeroSection } from './components/HeroSection/HeroSection';
+import { LandingPage } from './pages/LandingPage';
+
 function App() {
-  return (
-    <>
-      
-      <NavBar />
-      <HeroSection />
-      <FeaturesSection />
-      <TravelStatsSection />
-      <RadarSection />
-      <SeamlessImports />
-      <Airport />
-      <FAQ />
-      <Footer />
-    </>
-  );
+  return <LandingPage />;
 }
-export default App; 
+export default App;
