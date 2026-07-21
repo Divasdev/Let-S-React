@@ -3,6 +3,7 @@ import {NavBar} from "../components/NavBar/NavBar";
 import { AirportSearch } from "../components/AirportPage/AirportSearch";
 import { AirportInfoCard } from "../components/AirportPage/AirportInfoCard";
 import { AirlinesOperating } from "../components/AirportPage/AirlinesOperating";
+import { PopularRoutes } from "../components/AirportPage/PopularRoutes";
 export function AirportPage() {
   return (
     <>
@@ -10,6 +11,7 @@ export function AirportPage() {
       <AirportSearch />
       <AirportInfoCard />
       <AirlinesOperating />
+      <PopularRoutes />
 
       {/* <Footer /> */}
     </>
