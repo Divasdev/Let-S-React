@@ -6,6 +6,7 @@ export function AirlinesOperating() {
 
   const carrierAirlines = [
     {
+      id: 1,
       icon: aeroplaneImg,
       name: "United",
       routeNo: "86",
@@ -35,27 +36,38 @@ export function AirlinesOperating() {
       otp: "90%",
     },
     {
-      d: 4,
+      id: 5,
       icon: aeroplaneImg,
       name: "Alaska",
       routeNo: 30,
       otp: "94%"
 
+    },
+    {
+      
+      id: 5,
+      icon: aeroplaneImg,
+      name: "Alaska",
+      routeNo: 30,
+      otp: "94%"
+
+    
     }
   ]
 
   return (
 
-    <section className="ml-15 mb-50" >
-      <p className="font-light text-gray-400  ml-30 ">CARRIERS</p>
+    <section className="px-6 py-12">
+      <div className="max-w-5xl mx-auto">
+        <p className="font-light text-gray-400">CARRIERS</p>
 
-      <h2 className="font-bold text-2xl ml-30 ">Airlines Operating Here</h2>
+        <h2 className="font-bold text-2xl">Airlines Operating Here</h2>
 
-      <div className="flex gap-15 mt-6  justify-center items-center">
+        <div className="flex gap-4 mt-6 overflow-x-auto pb-2 scrollbar-hide">
         {carrierAirlines.map((airline) => (
           <div
             key={airline.id}
-           className="w-45 rounded-4xl border border-gray-200 shadow-lg hover:border-blue-500 hover:shadow-xl transition-all duration-300 p-5 flex justify-center flex-col items-center"
+           className="shrink-0 w-45 rounded-4xl border border-gray-200 shadow-lg hover:border-blue-500 hover:shadow-xl transition-all duration-300 p-5 flex justify-center flex-col items-center"
 
 
 
@@ -70,8 +82,8 @@ export function AirlinesOperating() {
             <span className="text-green-300 rounded-4xl p-2 bg-gray-50 font-mono font-medium">OTP • {airline.otp}</span>
           </div>
         ))}
+        </div>
       </div>
-
     </section>
 
   )
