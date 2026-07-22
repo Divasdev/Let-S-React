@@ -4,6 +4,7 @@ import { AirportSearch } from "../components/AirportPage/AirportSearch";
 import { AirportInfoCard } from "../components/AirportPage/AirportInfoCard";
 import { AirlinesOperating } from "../components/AirportPage/AirlinesOperating";
 import { PopularRoutes } from "../components/AirportPage/PopularRoutes";
+import { DelayTrendChart } from "../components/AirportPage/DelayTrendChart";
 export function AirportPage() {
   return (
     <>
@@ -12,6 +13,7 @@ export function AirportPage() {
       <AirportInfoCard />
       <AirlinesOperating />
       <PopularRoutes />
+      <DelayTrendChart />
 
       {/* <Footer /> */}
     </>
