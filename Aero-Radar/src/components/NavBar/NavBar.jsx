@@ -1,3 +1,4 @@
+import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
 import logoImg from '../../assets/logo.png';
 export function NavBar() {
@@ -15,19 +16,20 @@ export function NavBar() {
 
 export function Logo() {
    return (
-      <div className='flex items-center gap-2'>
+      <Link to="/" className='flex items-center gap-2'>
          <img src={logoImg} className='size-8 rounded-full' />
          <h2 className='font-semibold text-charcoal text-xl'>AeroRadar</h2>
-      </div>
+      </Link>
    )
 }
 export function NavLinks() {
+   const location = useLocation();
    return (
       <div className='flex items-center gap-8 text-sm font-medium text-outline'>
-         <a href='#' className='text-primary'>Features</a>
-         <a href='#'>Airport</a>
-         <a href='#'>Flights</a>
-         <a href='#'>Analytics</a>
+         <Link to="/" className={location.pathname === '/' ? 'text-primary' : 'hover:text-primary transition-colors'}>Features</Link>
+         <Link to="/airport" className={location.pathname === '/airport' ? 'text-primary' : 'hover:text-primary transition-colors'}>Airport</Link>
+         <a href='#' className='hover:text-primary transition-colors'>Flights</a>
+         <a href='#' className='hover:text-primary transition-colors'>Analytics</a>
       </div>
    )
 }
