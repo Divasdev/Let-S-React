@@ -5,6 +5,10 @@ import { AirportInfoCard } from "../components/AirportPage/AirportInfoCard";
 import { AirlinesOperating } from "../components/AirportPage/AirlinesOperating";
 import { PopularRoutes } from "../components/AirportPage/PopularRoutes";
 import { DelayTrendChart } from "../components/AirportPage/DelayTrendChart";
+import { WeatherTelemetry } from "../components/AirportPage/WeatherTelemetry";
+import { TerminalStatus } from "../components/AirportPage/TerminalStatus";
+import { UnlockIntelligenceCTA } from "../components/AirportPage/UnlockIntelligenceCTA";
+
 export function AirportPage() {
   return (
     <>
@@ -14,10 +18,11 @@ export function AirportPage() {
       <AirlinesOperating />
       <PopularRoutes />
       <DelayTrendChart />
+      <WeatherTelemetry />
+      <TerminalStatus />
+      <UnlockIntelligenceCTA />
 
       {/* <Footer /> */}
     </>
-    
   );
 }
-
