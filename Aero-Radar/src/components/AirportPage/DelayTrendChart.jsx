@@ -50,10 +50,10 @@ export function DelayTrendChart() {
               
               {/* Speed Baseline Line */}
               <div className="absolute top-[75%] left-0 w-full border-t border-dashed border-outline-variant/40 flex items-center justify-end pr-2">
-                 <span className="text-[10px] font-mono text-outline-variant bg-white pl-2 -mt-[10px]">Speed Baseline</span>
+                 <span className="text-[10px] font-mono text-outline-variant bg-white pl-2 -mt-2.5">Speed Baseline</span>
               </div>
 
-              {/* Bars */}
+             
               {chartData.map((item) => (
                 <div key={item.day} className="flex flex-col items-center group relative z-10 w-12">
                   {/* Active Value Label */}
