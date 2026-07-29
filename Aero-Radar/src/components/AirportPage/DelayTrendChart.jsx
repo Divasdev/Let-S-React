@@ -13,7 +13,7 @@ export function DelayTrendChart() {
     <section className="px-6 py-12 w-full">
       <div className="max-w-5xl mx-auto">
         
-        {/* Header Area */}
+       
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <p className="font-mono text-[10px] font-bold tracking-[0.15em] text-outline-variant uppercase">
