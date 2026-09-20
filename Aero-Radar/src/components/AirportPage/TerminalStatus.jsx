@@ -1,67 +1,30 @@
-export function TerminalStatus() {
-  const flights = [
-    { scheduled: "10:00", actual: "10:05", flight: "UA506", destination: "JFK", gate: "G93", status: "DEPARTED", statusColor: "success" },
-    { scheduled: "10:30", actual: "11:15", flight: "DL402", destination: "LAX", gate: "T2", status: "DELAYED", statusColor: "warning", highlightActual: true },
-    { scheduled: "11:00", actual: "11:00", flight: "AA88", destination: "LHR", gate: "A12", status: "BOARDING", statusColor: "primary" },
-  ];
+import { useState } from 'react';
+import { AirportIcon } from './AirportIcon';
+import { AirlineMark } from './AirlinesOperating';
+import { airlineStyles } from './airportData';
 
-  const getStatusStyles = (color) => {
-    switch (color) {
-      case "success": return "bg-success/10 text-success border-success/20";
-      case "warning": return "bg-warning/10 text-warning border-warning/20";
-      case "primary": return "bg-primary/10 text-primary border-primary/20";
-      default: return "bg-outline-variant/10 text-outline border-outline-variant/20";
-    }
-  };
-
+export function TerminalStatus({ airport }) {
+  const [direction, setDirection] = useState('Departures');
+  const [filter, setFilter] = useState('All flights');
+  const arriving = direction === 'Arrivals';
+  const [hour, minute] = airport.time.split(':').map(Number);
+  function scheduledTime(index) {
+    const total = hour * 60 + minute + [3, 28, 43, 68][index];
+    return `${String(Math.floor(total / 60) % 24).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+  }
+  const rows = airport.carriers.slice(0, 4).map((airline, index) => ({
+    airline, flight: `${airlineStyles[airline].initials} ${[2438, 318, 906, 112][index]}`,
+    place: airport.boardDestinations[index], time: scheduledTime(index),
+    gate: ['F12', 'D08', 'B22', 'A14'][index],
+    status: arriving ? ['Landed', 'Delayed', 'On time', 'On time'][index] : ['Boarding', 'Delayed', 'On time', 'On time'][index],
+  }));
+  const visible = rows.filter(row => filter === 'All flights' || row.status === filter);
   return (
-    <section className="px-6 py-6 w-full mb-12">
-      <div className="max-w-5xl mx-auto">
-        
-        {/* Header */}
-        <p className="font-mono text-[10px] font-bold tracking-[0.15em] text-outline-variant uppercase mb-4">
-          LIVE TELEMETRY / TERMINAL STATUS
-        </p>
-
-        {/* Table Container */}
-        <div className="w-full overflow-x-auto rounded-[var(--radius-card)] bg-white border border-outline-variant/30 shadow-sm">
-          <table className="w-full text-left border-collapse min-w-[600px]">
-            
-            {/* Table Header */}
-            <thead>
-              <tr className="bg-surface-container border-b border-outline-variant/20">
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Scheduled</th>
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Actual</th>
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Flight</th>
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Destination</th>
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Gate</th>
-                <th className="px-6 py-4 font-mono text-[10px] font-bold tracking-widest text-outline uppercase">Status</th>
-              </tr>
-            </thead>
-
-            {/* Table Body */}
-            <tbody className="font-mono text-sm font-medium text-charcoal divide-y divide-outline-variant/20">
-              {flights.map((flight, i) => (
-                <tr key={i} className="hover:bg-surface-tint/50 transition-colors">
-                  <td className="px-6 py-5">{flight.scheduled}</td>
-                  <td className={`px-6 py-5 ${flight.highlightActual ? "text-warning font-bold" : ""}`}>
-                    {flight.actual}
-                  </td>
-                  <td className="px-6 py-5 font-bold">{flight.flight}</td>
-                  <td className="px-6 py-5 font-sans font-medium">{flight.destination}</td>
-                  <td className="px-6 py-5">{flight.gate}</td>
-                  <td className="px-6 py-5">
-                    <span className={`inline-block px-3 py-1 rounded-[var(--radius-pill)] border text-[10px] font-bold uppercase tracking-widest ${getStatusStyles(flight.statusColor)}`}>
-                      {flight.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+    <section className="airport-panel airport-board" id="airport-flights" aria-labelledby="airport-board-title">
+      <div className="airport-panel-heading"><div><span className="airport-eyebrow">THE FLIGHT BOARD</span><h2 id="airport-board-title">Every journey, at a glance.</h2></div><span className="airport-mini-label">{airport.code} / LOCAL TIME</span></div>
+      <div className="airport-board-controls"><div className="airport-segmented" role="group" aria-label="Flight direction">{['Departures', 'Arrivals'].map(item => <button key={item} onClick={() => setDirection(item)} aria-pressed={direction === item}><AirportIcon name={item.toLowerCase()} size={16} />{item}</button>)}</div><label className="airport-filter"><span className="sr-only">Filter flight status</span><select value={filter} onChange={event => setFilter(event.target.value)}><option>All flights</option><option>On time</option><option>Delayed</option></select></label></div>
+      <div className="airport-table-scroll"><table className="airport-flight-table"><thead><tr><th>TIME</th><th>{arriving ? 'FROM / FLIGHT' : 'TO / FLIGHT'}</th><th>GATE</th><th>STATUS</th></tr></thead><tbody>{visible.map(row => <tr key={row.flight}><td className="airport-flight-time">{row.time}{row.status === 'Delayed' && <small>+25 min</small>}</td><td><div className="airport-flight-destination"><AirlineMark name={row.airline} small /><div><strong>{row.place.city} <span>{row.place.code}</span></strong><small>{row.airline} · {row.flight}</small></div></div></td><td className="airport-gate">{row.gate}</td><td><span className={`airport-flight-status ${row.status.toLowerCase().replace(' ', '-')}`}><span className="airport-dot" />{row.status}</span></td></tr>)}</tbody></table></div>
+      <div className="airport-board-bottom"><span><span className="airport-dot" /> Sample schedule</span><span>{visible.length} flights in this preview</span></div>
     </section>
   );
 }
