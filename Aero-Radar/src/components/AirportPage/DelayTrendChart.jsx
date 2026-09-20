@@ -1,86 +1,20 @@
-export function DelayTrendChart() {
-  const chartData = [
-    { day: "Mon", value: 15, max: 90 },
-    { day: "Tue", value: 25, max: 90 },
-    { day: "Wed", value: 10, max: 90 },
-    { day: "Thu", value: 30, max: 90 },
-    { day: "Fri", value: 60, max: 90, active: true },
-    { day: "Sat", value: 40, max: 90 },
-    { day: "Sun", value: 20, max: 90 },
-  ];
+import { useState } from 'react';
+import { AirportIcon } from './AirportIcon';
 
+export function DelayTrendChart({ airport }) {
+  const [selectedDay, setSelectedDay] = useState(6);
+  const values = [12, 18, 8, 24, 16, 10, airport.delay];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const average = Math.round(values.reduce((total, value) => total + value, 0) / values.length);
   return (
-    <section className="px-6 py-12 w-full">
-      <div className="max-w-5xl mx-auto">
-        
-       
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <p className="font-mono text-[10px] font-bold tracking-[0.15em] text-outline-variant uppercase">
-              PERFORMANCE
-            </p>
-            <h2 className="font-bold text-2xl text-charcoal mt-1">
-              7-Day Delay Trend
-            </h2>
-            <p className="font-sans text-sm text-outline mt-1">
-              Afternoon departures see the highest average delay this week.
-            </p>
-          </div>
-          
-          <button className="whitespace-nowrap rounded-[var(--radius-pill)] border border-outline-variant/50 px-4 py-2 text-xs font-medium text-charcoal hover:bg-surface-container transition-all">
-            View Full Analytics
-          </button>
-        </div>
-
-        {/* Chart Container */}
-        <div className="mt-8 w-full p-8 rounded-[var(--radius-card)] border border-outline-variant/30 bg-white shadow-card">
-          <div className="relative h-64 w-full flex">
-            
-            {/* Y-Axis Labels */}
-            <div className="flex flex-col justify-between h-full text-[10px] font-mono text-outline-variant w-8">
-              <span>90m</span>
-              <span>60m</span>
-              <span>30m</span>
-              <span>15m</span>
-              <span>0m</span>
-            </div>
-
-            {/* Chart Area */}
-            <div className="relative flex-1 h-full flex items-end justify-between ml-4 pb-6 border-b border-outline-variant/20">
-              
-              {/* Speed Baseline Line */}
-              <div className="absolute top-[75%] left-0 w-full border-t border-dashed border-outline-variant/40 flex items-center justify-end pr-2">
-                 <span className="text-[10px] font-mono text-outline-variant bg-white pl-2 -mt-2.5">Speed Baseline</span>
-              </div>
-
-             
-              {chartData.map((item) => (
-                <div key={item.day} className="flex flex-col items-center group relative z-10 w-12">
-                  {/* Active Value Label */}
-                  {item.active && (
-                    <span className="absolute -top-6 text-[10px] font-mono font-bold text-primary">
-                      {item.value}m
-                    </span>
-                  )}
-                  {/* Bar */}
-                  <div
-                    className={`w-full rounded-t-md transition-all duration-300 ${
-                      item.active ? "bg-primary" : "bg-surface-container-high group-hover:bg-outline-variant/40"
-                    }`}
-                    style={{ height: `${(item.value / item.max) * 100}%` }}
-                  ></div>
-                  {/* X-Axis Label */}
-                  <span className="absolute -bottom-6 text-xs text-outline font-medium">
-                    {item.day}
-                  </span>
-                </div>
-              ))}
-
-            </div>
-          </div>
-        </div>
-
+    <section className="airport-panel airport-delay" aria-labelledby="airport-delay-title">
+      <div className="airport-panel-heading"><div><span className="airport-eyebrow">A LITTLE MORE PERSPECTIVE</span><h2 id="airport-delay-title">The rhythm of the runway.</h2></div><span className="airport-period"><AirportIcon name="clock" size={13} /> Last 7 days</span></div>
+      <div className="airport-delay-summary"><div><strong>{average}<span>min</span></strong><p>average departure delay</p></div><span className="airport-chart-selection"><span className="airport-dot" />{days[selectedDay]} · {values[selectedDay]} min</span></div>
+      <div className="airport-chart" aria-label="Sample average departure delay by day in minutes">
+        <div className="airport-chart-axis" aria-hidden="true"><span>30m</span><span>20m</span><span>10m</span><span>0m</span></div>
+        <div className="airport-chart-plot"><div className="airport-chart-grid" aria-hidden="true"><i /><i /><i /><i /></div><div className="airport-chart-bars">{values.map((value, index) => <button className={`airport-chart-column ${selectedDay === index ? 'is-selected' : ''}`} key={days[index]} onClick={() => setSelectedDay(index)} aria-pressed={selectedDay === index} aria-label={`${days[index]}: ${value} minutes average delay`}><span className="airport-chart-bar" style={{ height: `${value / 30 * 100}%` }}><span>{value}m</span></span><span className="airport-chart-day">{days[index]}</span></button>)}</div></div>
       </div>
+      <p className="airport-chart-footnote"><span className="airport-dot" /> Average delay per departure <span>Sample week</span></p>
     </section>
   );
 }
